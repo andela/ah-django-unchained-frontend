@@ -1,8 +1,7 @@
 {
     "extends": [
       "airbnb",
-      "eslint:recommended",
-      "prettier", "prettier/react"],
+      "eslint:recommended"],
     "env": {
       "es6": true,
       "browser": true,

@@ -6,6 +6,7 @@ import Login from '../components/Login';
 const Routes = () => {
   return (
     <BrowserRouter>
+    
       <Switch>
         <Route exact path='/' component={Home} />
         <Route path='/login' component={Login} />
@@ -13,5 +14,4 @@ const Routes = () => {
     </BrowserRouter>
   );
 };
-
 export default Routes;
