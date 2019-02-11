@@ -61,7 +61,8 @@
       "!**/src/serviceWorker.jsx",
       "!**/src/index.jsx",
       "!**/src/store/index.js",
-      "!**/src/store/rootReducer.js"
+      "!**/src/store/rootReducer.js",
+      "!**/src/pages/NavBar.jsx"
     ]
   }
 }
