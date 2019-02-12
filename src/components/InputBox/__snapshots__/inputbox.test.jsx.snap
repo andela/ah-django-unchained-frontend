@@ -6,6 +6,7 @@ exports[`InputBox should render correctly 1`] = `
   id="password"
   name="password"
   placeholder="password"
+  required={true}
   type="password"
 />
 `;

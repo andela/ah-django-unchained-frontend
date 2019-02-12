@@ -23,7 +23,7 @@ exports[`The NavBar should match snapshot 1`] = `
           "entries": Array [
             Object {
               "hash": "",
-              "key": "numn3d",
+              "key": "6fcqnd",
               "pathname": "/",
               "search": "",
               "state": undefined,
@@ -37,7 +37,7 @@ exports[`The NavBar should match snapshot 1`] = `
           "listen": [Function],
           "location": Object {
             "hash": "",
-            "key": "numn3d",
+            "key": "6fcqnd",
             "pathname": "/",
             "search": "",
             "state": undefined,
@@ -127,12 +127,11 @@ exports[`The NavBar should match snapshot 1`] = `
                   >
                     <Nav
                       className="ml-auto"
-                      navbar={true}
                       tag="ul"
                       vertical={false}
                     >
                       <ul
-                        className="ml-auto navbar-nav"
+                        className="ml-auto nav"
                       >
                         <ul
                           className="container"

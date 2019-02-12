@@ -16,6 +16,7 @@ describe('InputBox', () => {
         id='password'
         placeholder='password'
         className='col-sm-6'
+        required
       />
     );
     expect(tree).toMatchSnapshot();

@@ -7,13 +7,13 @@ import SignupPage from '../pages/SignupPage';
 const Routes = () => {
   return (
     <BrowserRouter>
-    <div>
-    <NavBar />
-      <Switch>
-        <Route exact path='/' component={Home} />
-        <Route signup path='/signup' component={SignupPage} />
-      </Switch>
-      </div>
+      <React.Fragment>
+        <NavBar />
+        <Switch>
+          <Route exact path='/' component={Home} />
+          <Route signup path='/signup' component={SignupPage} />
+        </Switch>
+      </React.Fragment>
     </BrowserRouter>
   );
 };

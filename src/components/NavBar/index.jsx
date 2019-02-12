@@ -36,7 +36,7 @@ class NavBar extends Component {
           </NavbarBrand>
           <NavbarToggler onClick={this.toggleNavBar} />
           <Collapse isOpen={this.state.isOpen} navbar>
-            <Nav className="ml-auto" navbar>
+            <Nav className="ml-auto">
               {loggedIn ? (
                   <Link to="logout" class="text-info nav-link">
                     Logout
