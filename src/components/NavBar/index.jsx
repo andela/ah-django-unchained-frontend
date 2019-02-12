@@ -1,43 +1,49 @@
 import React, { Component } from 'react';
-import {Collapse,Navbar,NavbarToggler,
-  NavbarBrand, Nav, NavItem, NavLink} from 'reactstrap';
-import Logo from '../assets/images/logo.png';
+import {
+  Collapse,
+  Navbar,
+  NavbarToggler,
+  NavbarBrand,
+  Nav,
+  NavItem,
+  NavLink
+} from 'reactstrap';
+import Logo from '../../assets/images/logo.png';
 
 class NavBar extends Component {
   constructor(props) {
     super(props);
-
-    this.navBarToggle = this.navBarToggle.bind(this);
     this.state = {
       isOpen: false
     };
   }
-  navBarToggle() {
+
+  toggleNavBar = () => {
     this.setState({
       isOpen: !this.state.isOpen
     });
-  }
+  };
+
   render() {
     return (
       <div>
         <Navbar className="navbar navbar-expand-lg navbar navbar-dark bg-dark">
           <NavbarBrand href="/">
             <img src={Logo} alt="Logo" />
-Authors Haven
+            Authors Haven
           </NavbarBrand>
-          <NavbarToggler onClick={this.navBarToggle} />
+          <NavbarToggler onClick={this.toggleNavBar} />
           <Collapse isOpen={this.state.isOpen} navbar>
             <Nav className="ml-auto" navbar>
               <NavItem>
-                <NavLink to='signup'>SignUp</NavLink>
+                <NavLink to="signup">SignUp</NavLink>
               </NavItem>
               <NavItem>
-                <NavLink to='/login'>Login</NavLink>
+                <NavLink to="/login">Login</NavLink>
               </NavItem>
             </Nav>
           </Collapse>
-        </Navbar> 
-        
+        </Navbar>
       </div>
     );
   }
