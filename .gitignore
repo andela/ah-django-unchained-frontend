@@ -49,3 +49,4 @@ yarn-error.log*
 
 # snapshots
 src/**/**/__snapshots__/*.test.tsx.snap
+__snapshots__/

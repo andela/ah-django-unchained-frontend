@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
+import './NavBar.css';
 import {
   Collapse,
   Navbar,
   NavbarToggler,
   NavbarBrand,
   Nav,
-  NavItem,
-  NavLink
 } from 'reactstrap';
 import Logo from '../../assets/images/logo.png';
 
@@ -14,7 +14,8 @@ class NavBar extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      isOpen: false
+      isOpen: false,
+      loggedIn: false
     };
   }
 
@@ -25,22 +26,32 @@ class NavBar extends Component {
   };
 
   render() {
+    const { loggedIn } = this.state;
     return (
       <div>
-        <Navbar className="navbar navbar-expand-lg navbar navbar-dark bg-dark">
-          <NavbarBrand href="/">
+        <Navbar className="navbar navbar-expand-lg navbar bg-dark navbar-dark ">
+          <NavbarBrand href="/" className="nav-link">
             <img src={Logo} alt="Logo" />
             Authors Haven
           </NavbarBrand>
           <NavbarToggler onClick={this.toggleNavBar} />
           <Collapse isOpen={this.state.isOpen} navbar>
             <Nav className="ml-auto" navbar>
-              <NavItem>
-                <NavLink to="signup">SignUp</NavLink>
-              </NavItem>
-              <NavItem>
-                <NavLink to="/login">Login</NavLink>
-              </NavItem>
+              {loggedIn ? (
+                  <Link to="logout" class="text-info nav-link">
+                    Logout
+                  </Link>
+              ) : (
+                <ul className="container">
+                  <li><Link to="signup" className="text-info nav-link">
+                      SignUp
+                    </Link></li>  
+                  <li><Link to="/login" className="text-info nav-link">
+                      Login
+                    </Link></li>  
+                 
+                </ul>
+              )}
             </Nav>
           </Collapse>
         </Navbar>

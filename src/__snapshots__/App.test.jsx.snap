@@ -2,7 +2,6 @@
 
 exports[`MyComponent should render correctly in "debug" mode 1`] = `
 <div>
-  <NavBar />
   <Routes />
 </div>
 `;
