@@ -1,14 +1,9 @@
 import axios from 'axios';
 
 export const http = axios.create({
-  baseURL: process.env.REACT_APP_BASE_URL
+    baseURL: process.env.REACT_APP_BASE_URL,
+    headers: { "Content-Type": "application/json" }
 });
 
-export const httpWithToken = axios.create({
-  baseURL: process.env.REACT_APP_BASE_URL,
-  headers: {
-    'authorization': `token ${localStorage.getItem('token')}`,
-    'Accept' : 'application/json',
-    'Content-Type': 'application/json'
-  }
-});
+
+export default http

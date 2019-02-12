@@ -3,9 +3,10 @@ import PropTypes from 'prop-types';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 const SignupForm = ({
-    handleChange, handleSubmit, messages,
+    onSubmit,
+    handleChange,
 }) => (
-    <form onSubmit={handleSubmit} className='registrationForm'>
+    <form onSubmit={onSubmit} className='registrationForm'>
     <div className='head'>Signup</div>
     <hr />
 
@@ -46,23 +47,10 @@ const SignupForm = ({
             title='Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters'
         />
     </div>
+ 
 
     <div className='form-group'>
-        <label htmlFor='cpassword'>Confirm Password</label>
-        <input
-            type='password'
-            name='cpassword'
-            onChange={handleChange}
-            placeholder='Confirm password'
-            className='form-control'
-            required
-            pattern='(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}'
-            title='Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters'
-        />
-    </div>
-
-    <div className='form-group'>
-      <button type='submit' className='btn btn-primary login-button' disabled={true}>
+      <button type='submit' className='btn btn-primary login-button' disabled={false}>
         Sign Up
       </button>
     </div>
