@@ -11,6 +11,7 @@ import ArticleForm from '../pages/ArticleForm/index';
 import ViewDrafts from '../pages/ViewDraft/index';
 import UpdateArticle from '../pages/UpdateArticle/index';
 import CreateArticle from '../pages/CreateArticle/index';
+import Profile from '../pages/Profile';
 
 const Routes = () => {
   return (
@@ -28,6 +29,7 @@ const Routes = () => {
           <Route draft path="/draft" component={ViewDrafts} />
           <Route updatearticle path="/updatearticle" component={UpdateArticle} />
           <Route createArticle path="/createArticle" component={CreateArticle} />
+          <Route path='/profile' component={ Profile }></Route>
         </Switch>
       </React.Fragment>
     </BrowserRouter>
