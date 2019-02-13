@@ -1,7 +1,8 @@
 //Action creators for sign up
 import { SIGNUP_REQUEST, SIGNUP_SUCCESS, SIGNUP_FAILURE } from './types';
 import http from '../../../utils/helpers/http';
-import axios from 'axios'
+// import axios from 'axios';
+
 export const signupRequestAction = payload => ({
   type: SIGNUP_REQUEST,
   payload,

@@ -1,5 +1,6 @@
 import React from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import Logo from '../assets/images/logo.png';
 
 
 
@@ -7,7 +8,9 @@ const Navbar = () => {
     return (
         <div>
             <nav className="navbar navbar-expand-sm bg-light navbar-light sticky-top">
-            <a class="navbar-brand" href="/">Logo</a>
+            <a className="navbar-brand" href="/">
+              <img src= { Logo } alt=""/>
+            </a>
   <ul className="navbar-nav ml-auto">
     <li className="nav-item active">
       <a className="nav-link" href="/">Home</a>

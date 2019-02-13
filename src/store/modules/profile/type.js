@@ -1,0 +1,2 @@
+export const REQUEST_PROFILE = 'REQUEST_PROFILE';
+

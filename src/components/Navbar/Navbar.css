@@ -1,0 +1,26 @@
+.logo
+{
+    width:70px;
+    height: 70px;
+}
+.move-right
+{
+    margin-right: 10px;
+}
+.navbar-brand span
+{
+    position: relative;
+    top:8px;
+    left:10px;
+    font-size: .5em;
+}
+.navbar-nav li
+{
+    padding-left: 10px;
+    padding-right:10px;
+    font-size: 1em;
+}
+.nav-link
+{
+    color:#fff !important;
+}
