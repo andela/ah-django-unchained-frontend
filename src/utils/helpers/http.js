@@ -2,7 +2,10 @@ import axios from 'axios';
 
 export const http = axios.create({
     baseURL: process.env.REACT_APP_BASE_URL,
-    headers: { "Content-Type": "application/json" }
+    headers: { 
+        "Content-Type": "application/json", 
+        "Accept": "application/json"
+    }
 });
 
 

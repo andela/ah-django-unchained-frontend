@@ -1,0 +1,5 @@
+export const REQUEST_PROFILE = 'REQUEST_PROFILE';
+export const FAIL_PROFILE = 'REQUEST_PROFILE';
+export const UPDATE_PROFILE = 'UPDATE_PROFILE';
+
+

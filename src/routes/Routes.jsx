@@ -29,9 +29,10 @@ const Routes = () => {
           <Route draft path="/draft" component={ViewDrafts} />
           <Route updatearticle path="/updatearticle" component={UpdateArticle} />
           <Route createArticle path="/createArticle" component={CreateArticle} />
-          <Route path='/profile' component={ Profile }></Route>
+          <Route path='/profile/:username' component={ Profile }></Route>
         </Switch>
       </React.Fragment>
+
     </BrowserRouter>
   );
 };
