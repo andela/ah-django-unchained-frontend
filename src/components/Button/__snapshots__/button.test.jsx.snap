@@ -8,12 +8,3 @@ exports[`Button should render correctly 1`] = `
   login
 </button>
 `;
-
-exports[`InputBox should render correctly 1`] = `
-<button
-  className="col-sm-6 btn btn-success form-control"
-  type="submit"
->
-  login
-</button>
-`;

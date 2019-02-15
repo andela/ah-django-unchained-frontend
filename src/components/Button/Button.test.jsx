@@ -1,11 +1,13 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-import Button from './';
+import Button from '.';
 
 describe('Button', () => {
+
   it('should be defined', () => {
     expect(Button).toBeDefined();
   });
+
   it('should render correctly', () => {
     const tree = shallow(
       <Button
