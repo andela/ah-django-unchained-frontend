@@ -5,8 +5,8 @@ import ArticleDetail from '../pages/ArticleDetail/index';
 import NavBar from '../components/NavBar/index';
 import SignupPage from '../pages/SignupPage';
 import LoginPage from '../pages/LoginPage/index';
-import Resetpassword from '../pages/Passswordreset';
-import Updatepassword from '../pages/Passswordreset/UpdatePassword';
+import ResetPassword from '../pages/PassswordReset';
+import UpdatePassword from '../pages/UpdatePassword';
 
 const Routes = () => {
   return (
@@ -18,11 +18,13 @@ const Routes = () => {
           <Route signup path='/signup' component={SignupPage} />
           <Route exact path='/articleDetail' component={ArticleDetail} />
           <Route login path="/login" component={LoginPage} />
-          <Route path='/users/passwordreset/' component={Resetpassword} />
-          <Route path='/api/users/passwordresetdone/:token' component={Updatepassword} />
+          <Route passwordrest path='/passwordreset' component={ResetPassword} />
+          <Route passwordupdate path='/api/users/passwordresetdone/:token' component={UpdatePassword} />
         </Switch>
       </React.Fragment>
     </BrowserRouter>
   );
+
+
 };
 export default Routes;

@@ -4,12 +4,7 @@
   "private": true,
   "dependencies": {
     "axios": "^0.18.0",
-<<<<<<< HEAD
     "bootstrap": "^4.3.1",
-=======
-    "bootstrap": "^4.3.0",
-    "axios": "^0.18.0",
->>>>>>> feat(registration-redux): Implement API call and redux configuration
     "eslint-config-airbnb": "^17.1.0",
     "firebase": "^5.8.3",
     "font-awesome": "^4.7.0",

@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { Redirect } from 'react-router-dom';
+import { Redirect, Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { loginUser } from '../../store/modules/login';
 import { Button } from '../../components/Button';
 import { InputBox } from '../../components/InputBox';
 import SocialAuth from '../SocialAuth/index';
+import './LoginPage.scss';
 
 export class LoginPage extends Component {
   state = {
@@ -15,7 +16,6 @@ export class LoginPage extends Component {
   handleSubmit = e => {
     e.preventDefault();
     const { loginUser } = this.props;
-    console.log(this.props);
     const user = {
       email: this.state.email,
       password: this.state.password
@@ -41,7 +41,7 @@ export class LoginPage extends Component {
             <div className="col-md-6">
               <div className="card">
                 <header className="card-header">
-                  <h4 className="card-title mt-2">Create Account</h4>
+                  <h4 className="card-title mt-2">Login</h4>
                 </header>
                 <article className="card-body">
                   <p className="d-flex justify-content-center bg-danger text-white">
@@ -82,7 +82,7 @@ export class LoginPage extends Component {
                       Dont have an account? Sign up here
                     </p>
                     <p className="d-flex justify-content-center">
-                      Forgot password? Reset it here.
+                      <a href=' '><Link to="/passwordreset">Click here Forgot password? Reset it here.</Link></a>
                     </p>
                   </div>
                 </article>

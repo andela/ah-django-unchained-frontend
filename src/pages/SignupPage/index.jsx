@@ -10,7 +10,7 @@ export class SignUpPage extends Component {
   state = {
     username: '',
     email: '',
-    password: '',
+    password: ''
   };
 
   handleChange = e => {
@@ -27,32 +27,29 @@ export class SignUpPage extends Component {
   };
 
   render() {
-    const { isSuccesfull, errors, isFetching} = this.props;
-    const passwordErrorMessage = errors
-    ? errors.password
-    : null;
-    const emailErrorMessage = errors
-    ? errors.email
-    : null;
-    const usernameErrorMessage = errors
-    ? errors.username
-    : null;
+    const { isSuccesfull, errors, isFetching } = this.props;
+    const passwordErrorMessage = errors ? errors.password : null;
+    const emailErrorMessage = errors ? errors.email : null;
+    const usernameErrorMessage = errors ? errors.username : null;
     return (
       <React.Fragment>
-        {
-          isSuccesfull
-            ? <Redirect to='/' />
-            :<div id='loginContainer'>
-              {isFetching === true ? <Loader /> :
+        {isSuccesfull ? (
+          <Redirect to="/" />
+        ) : (
+          <div id="loginContainer">
+            {isFetching === true ? (
+              <Loader />
+            ) : (
               <SignupForm
                 onSubmit={this.handleSubmit}
                 handleChange={this.handleChange}
                 passwordErrorMessage={passwordErrorMessage}
                 usernameErrorMessage={usernameErrorMessage}
                 emailErrorMessage={emailErrorMessage}
-              />}
-            </div> 
-        }
+              />
+            )}
+          </div>
+        )}
       </React.Fragment>
     );
   }
@@ -65,7 +62,7 @@ export const mapStateToProps = state => ({
 });
 
 export const mapDispatchToProps = dispatch => ({
-  registerUser: user => dispatch(registerUser(user)),
+  registerUser: user => dispatch(registerUser(user))
 });
 
 SignUpPage.propTypes = {
