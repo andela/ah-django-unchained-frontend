@@ -1,0 +1,10 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Button should render correctly 1`] = `
+<button
+  className="col-sm-6 btn btn-success form-control"
+  type="submit"
+>
+  login
+</button>
+`;
