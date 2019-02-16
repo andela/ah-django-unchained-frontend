@@ -4,6 +4,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import './SignupForm.scss';
 import { Button } from '../Button/index';
 import { InputBox } from '../InputBox/index';
+import SocialAuth from '../../pages/SocialAuth/index';
 
 const SignupForm = ({
   onSubmit,
@@ -31,7 +32,7 @@ const SignupForm = ({
                 onChange={handleChange}
               />
             </div>
-            <p style={{ color: 'red' }}>{usernameErrorMessage}</p> 
+            <p style={{ color: 'red' }}>{usernameErrorMessage}</p>
             <div className='form-group'>
               <label htmlFor='email'>Email</label>
               <InputBox
@@ -59,7 +60,15 @@ const SignupForm = ({
             </div>
             <p style={{ color: 'red' }}>{passwordErrorMessage}</p>
             <div className='form-group'>
-              <Button type='submit' className='btn btn-info btn-block' text='Register' />
+              <Button
+                type='submit'
+                className='btn btn-info btn-block'
+                text='Register'
+              />
+            </div>
+            <div className='social-login'>
+              <h4>Sign up with</h4>
+              <SocialAuth />
             </div>
           </article>
         </div>
@@ -68,12 +77,12 @@ const SignupForm = ({
   </form>
 );
 
-SignupForm.propTypes= {
+SignupForm.propTypes = {
   onSubmit: PropTypes.func.isRequired,
   handleChange: PropTypes.func.isRequired,
   emailErrorMessage: PropTypes.array,
   passwordErrorMessage: PropTypes.array,
-  usernameErrorMessage: PropTypes.array,
+  usernameErrorMessage: PropTypes.array
 };
 
 SignupForm.defaultProps = {

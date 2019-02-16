@@ -1,13 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import './NavBar.css';
-import {
-  Collapse,
-  Navbar,
-  NavbarToggler,
-  NavbarBrand,
-  Nav,
-} from 'reactstrap';
+import { Collapse, Navbar, NavbarToggler, NavbarBrand, Nav } from 'reactstrap';
 import Logo from '../../assets/images/logo.png';
 
 class NavBar extends Component {
@@ -38,18 +32,21 @@ class NavBar extends Component {
           <Collapse isOpen={this.state.isOpen} navbar>
             <Nav className="ml-auto">
               {loggedIn ? (
-                  <Link to="logout" class="text-info nav-link">
-                    Logout
-                  </Link>
+                <Link to="logout" class="text-info nav-link">
+                  Logout
+                </Link>
               ) : (
                 <ul className="container">
-                  <li><Link to="signup" className="text-info nav-link">
+                  <li>
+                    <Link to="signup" className="text-info nav-link">
                       SignUp
-                    </Link></li>  
-                  <li><Link to="/login" className="text-info nav-link">
+                    </Link>
+                  </li>
+                  <li>
+                    <Link to="/login" className="text-info nav-link">
                       Login
-                    </Link></li>  
-                 
+                    </Link>
+                  </li>
                 </ul>
               )}
             </Nav>
