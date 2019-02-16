@@ -61,7 +61,7 @@ class Login extends Component {
                         </div>
                         <div className='form-group'>
                             <button type='submit' className='btn btn-info btn-block'>
-                                Register
+                                Log In
                             </button>
                             <p className='d-flex justify-content-center'>Dont have an account? Sign up here!</p>
                             <p className='d-flex justify-content-center'>Forgot password? Reset it here.</p>

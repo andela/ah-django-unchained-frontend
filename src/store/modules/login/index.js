@@ -31,13 +31,14 @@ export const loginUser = userData => dispatch => {
 export const loginReducer = (state = initialState, action) => {
   switch (action.type) {
     case LOGIN_SUCCESS:
-      localStorage.setItem('token', action.payload.token);
+      console.log(action.response.data.user.token)
+      localStorage.setItem('token', action.response.data.user.token);
       return {
         response: action.payload
       };
     case LOGIN_ERROR:
       return {
-        errors: action.payload
+        errors: action.response.response.data.errors.error[0]
       };
     default:
       return state;
