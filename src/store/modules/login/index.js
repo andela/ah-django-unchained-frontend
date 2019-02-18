@@ -5,11 +5,13 @@ const initialState = {};
 
 export const logginSuccessAction = response => ({
   type: LOGIN_SUCCESS,
+  isLoggedIn: true,
   response
 });
 
 export const logginErrorAction = response => ({
   type: LOGIN_ERROR,
+  isLoggedIn: false,
   response
 });
 

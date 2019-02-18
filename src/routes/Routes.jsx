@@ -4,6 +4,7 @@ import Home from '../pages/HomePage/index';
 import ArticleDetail from '../pages/ArticleDetail/index';
 import NavBar from '../components/NavBar/index';
 import SignupPage from '../pages/SignupPage';
+import Login from '../components/LoginForm/index';
 
 const Routes = () => {
   return (
