@@ -4,7 +4,7 @@ import Home from '../pages/HomePage/index';
 import ArticleDetail from '../pages/ArticleDetail/index';
 import NavBar from '../components/NavBar/index';
 import SignupPage from '../pages/SignupPage';
-import Login from '../components/LoginForm/index';
+import LoginPage from '../pages/LoginPage/index';
 
 const Routes = () => {
   return (
@@ -15,6 +15,7 @@ const Routes = () => {
           <Route exact path='/' component={Home} />
           <Route signup path='/signup' component={SignupPage} />
           <Route exact path='/articleDetail' component={ArticleDetail} />
+          <Route login path="/login" component={LoginPage} />
         </Switch>
       </React.Fragment>
     </BrowserRouter>

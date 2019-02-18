@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-export const InputBox = (props)=> {
+export const InputBox = props => {
   const { type, className, name, id, placeholder, onChange, required } = props;
   return (
     <input

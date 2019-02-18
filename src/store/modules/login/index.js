@@ -1,30 +1,41 @@
-import { LOGIN_ERROR, LOGIN_SUCCESS } from './types';
 import axios from 'axios';
+import { LOGIN_ERROR, LOGIN_SUCCESS, LOGIN_REQUEST } from './types';
 
 const initialState = {};
 
-export const logginSuccessAction = response => ({
+export const loginRequestAction = () => ({
+  type: LOGIN_REQUEST,
+  isLoading: true,
+  success: false
+});
+
+export const loginSuccessAction = response => ({
   type: LOGIN_SUCCESS,
   isLoggedIn: true,
+  isLoading: false,
+  success: true,
   response
 });
 
-export const logginErrorAction = response => ({
+export const loginErrorAction = response => ({
   type: LOGIN_ERROR,
   isLoggedIn: false,
+  isLoading: false,
+  success: false,
   response
 });
 
 export const loginUser = userData => dispatch => {
+  dispatch(loginRequestAction());
   axios
     .post('http://127.0.0.1:8000/api/users/login/', {
       user: userData
     })
     .then(res => {
-      dispatch(logginSuccessAction(res));
+      dispatch(loginSuccessAction(res));
     })
     .catch(errors => {
-      dispatch(logginErrorAction(errors));
+      dispatch(loginErrorAction(errors));
     });
 };
 
