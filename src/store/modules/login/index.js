@@ -19,11 +19,9 @@ export const loginUser = userData => dispatch => {
       user: userData
     })
     .then(res => {
-      console.log(res);
       dispatch(logginSuccessAction(res));
     })
     .catch(errors => {
-      console.log(errors);
       dispatch(logginErrorAction(errors));
     });
 };
@@ -31,7 +29,6 @@ export const loginUser = userData => dispatch => {
 export const loginReducer = (state = initialState, action) => {
   switch (action.type) {
     case LOGIN_SUCCESS:
-      console.log(action.response.data.user.token)
       localStorage.setItem('token', action.response.data.user.token);
       return {
         response: action.payload
