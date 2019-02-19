@@ -1,20 +1,24 @@
 //Action creators for sign up
 import { toast } from 'react-toastify';
 import { SIGNUP_REQUEST, SIGNUP_SUCCESS, SIGNUP_FAILURE } from './types';
-import http from '../../../utils/helpers/http';
-import axios from 'axios'
-export const signupRequestAction = payload => ({
+import { http } from '../../../utils/helpers/http';
+
+export const signupRequestAction = () => ({
   type: SIGNUP_REQUEST,
-  payload,
+  isFetching: true
 });
 
 export const signupSuccessAction = payload => ({
   type: SIGNUP_SUCCESS,
   payload,
+  isFetching: false,
+  isSuccesfull: true
 });
 
 export const signupFailureAction = errors => ({
   type: SIGNUP_FAILURE,
+  isFetching: false,
+  isSuccesfull: false,
   errors
 });
 
@@ -39,17 +43,20 @@ export const registerUser = user => dispatch => {
 export const signUpReducer = (state = { isFetching: false }, action) => {
   switch (action.type) {
     case SIGNUP_REQUEST:
-      return { isFetching: true };
+      return { ...state, isFetching: action.isFetching };
     case SIGNUP_FAILURE:
-      console.log(action.errors)
       return {
-        isFetching: false,
-        errors: action.errors
+        ...state,
+        isFetching: action.isFetching,
+        errors: action.errors,
+        isSuccesfull: action.isSuccesfull
       };
     case SIGNUP_SUCCESS:
       return {
-        isFetching: false,
-        response: action.response
+        ...state,
+        isFetching: action.isFetching,
+        response: action.payload,
+        isSuccesfull: action.isSuccesfull
       };
     default:
       return state;

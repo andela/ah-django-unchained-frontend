@@ -10,6 +10,7 @@ import { postArticleReducer, imageUploadReducer } from './modules/createArticle/
 import { ratingReducer } from './modules/articleRating/index';
 import {resetReducer } from './modules/PasswordReset';
 import { deleteArticleReducer } from './modules/deleteArticle';
+import  userProfile  from './modules/profile/index';
 
 const rootReducer = combineReducers({
   signUpReducer,
@@ -23,7 +24,8 @@ const rootReducer = combineReducers({
   postArticleReducer,
   imageUploadReducer,
   ratingReducer,
-  deleteArticleReducer
+  deleteArticleReducer,
+  userProfile
 });
 
 export default rootReducer;

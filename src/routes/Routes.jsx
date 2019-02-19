@@ -3,6 +3,8 @@ import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import Home from '../pages/HomePage/index';
 import  ArticleDetail  from '../pages/ArticleDetail/index';
 import NavBar from '../components/NavBar/index';
+import updateUserProfile from '../pages/UpdateProfile/Index';
+import ViewProfile from '../pages/ViewProfile/index';
 import SignupPage from '../pages/SignupPage';
 import LoginPage from '../pages/LoginPage/index';
 import ResetPassword from '../pages/PassswordReset';
@@ -11,7 +13,6 @@ import ArticleForm from '../pages/ArticleForm/index';
 import ViewDrafts from '../pages/ViewDraft/index';
 import UpdateArticle from '../pages/UpdateArticle/index';
 import CreateArticle from '../pages/CreateArticle/index';
-import Profile from '../pages/Profile';
 
 const Routes = () => {
   return (
@@ -29,10 +30,10 @@ const Routes = () => {
           <Route draft path="/draft" component={ViewDrafts} />
           <Route updatearticle path="/updatearticle" component={UpdateArticle} />
           <Route createArticle path="/createArticle" component={CreateArticle} />
-          <Route path='/profile/:username' component={ Profile }></Route>
+          <Route path='/profile/update/:username' component={updateUserProfile} />
+          <Route path='/profile/view/:username' component={ViewProfile} />
         </Switch>
       </React.Fragment>
-
     </BrowserRouter>
   );
 };

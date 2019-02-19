@@ -1,99 +1,109 @@
-import { REQUEST_PROFILE, FAIL_PROFILE, UPDATE_PROFILE } from './type';
-import http from '../../../utils/helpers/http';
 import axios from 'axios';
-let initialSate = {}
+import { toast } from 'react-toastify';
+import { SUCCESS_PROFILE, FAIL_PROFILE, UPDATE_PROFILE, UPDATE_PROFILE_IMAGE } from './type';
+import {httpWithToken} from '../../../utils/helpers/http';
 
-
+let initialSate = {};
 
 // Actions for profile
-const getprofileAction = payload => (
+const getProfileSuccess = payload => (
   {
-    type: REQUEST_PROFILE,
+    type: SUCCESS_PROFILE,
     payload
-  })
-const failprofileAction = payload => (
+  });
+
+const getProfileFail = payload => (
   {
     type: FAIL_PROFILE,
     payload
-  })
+  });
 
-const updateProfileAction = payload => ({
+const getupdateProfile = payload => ({
   type: UPDATE_PROFILE,
   payload
-})
+});
 
-
+const getupdateProfileImage = (payload) => ({
+  type: UPDATE_PROFILE_IMAGE,
+  message: payload
+});
 
 // dispatcher for profiles
-export const profileRequestDispatch = user => dispatch => {
-  http.get(`api/profiles/${user}/`)
+export const getProfile = user => dispatch => {
+  return httpWithToken.get(`api/profiles/${user}/`)
     .then((res) => {
-      dispatch(getprofileAction(res.data))
+      dispatch(getProfileSuccess(res.data));
     })
     .catch((error) => {
-      dispatch(failprofileAction(error))
-    })
-}
+      dispatch(getProfileFail(error));
+    });
+};
 
-
-export const profileUpdateDispatch = (user, data) => dispatch => {
-  http.put(`api/profiles/${user}/`,data,{
-    headers: { 
-      Authorization: "Token eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJlbWFpbCI6ImNocmlzQGdtYWlsLmNvbSIsImV4cCI6MTU1MDU1ODI5Mn0.MiMNlplRSULa7HdWbUtlCuN5v3Onxh8ZlJpbFEp3aB4" 
-  }} )
+export const updateProfile = (user, data) => dispatch => {
+  return httpWithToken.put(`api/profiles/${user}/`, data)
     .then((res) => {
-      dispatch(updateProfileAction(res.data))
+      dispatch(getupdateProfile(res.data));
+      toast.success('Profile upload Successful');
     })
     .catch((error) => {
-      dispatch(failprofileAction(error))
-    })
-}
+      dispatch(getProfileFail(error));
+    });
+};
 
-export const imageUpdateDispatch = (user, data) => dispatch => {
-  const headers = {
-    "Content-Type": "application/x-wwww-form-urlencoded" 
-  }
-  axios.put(`https://api.cloudinary.com/v1_1/authors/upload`,data, {headers:headers})
-    .then((res) => {
-      dispatch(updateProfileAction(res.data))
+export const updateProfileImage = (user, data) => dispatch => {
+  const url = 'http://cors-anywhere.herokuapp.com/http://api.cloudinary.com/v1_1/authors/upload';
+  const headers = { 'Content-Type': 'application/x-wwww-form-urlencoded', 'mode': 'no-cors' };
+  const formData = new FormData();
+  formData.append('file', data);
+  formData.append('upload_preset', 'default-preset');
+  dispatch(getupdateProfileImage('Uploading'));
+  return axios.post(url, formData, { headers: headers })
+    .then(res => {
+      dispatch(updateProfile(user, { 'profile_image': res.data.secure_url }));
     })
     .catch((error) => {
-      console.log(error.request)
-      dispatch(failprofileAction(error))
-    })
-}
+      dispatch(getProfileFail(error));
+    });
+};
 
 // reducer for getting profile
-const getProfileReducer = (state = { data: initialSate }, action) => {
+const userProfile = (state = { data: initialSate }, action) => {
   switch (action.type) {
-    case REQUEST_PROFILE:
+    case SUCCESS_PROFILE:
       return {
         ...state,
+        message: 'Drop/ click to add profile image',
         isLoad: true,
         data: action.payload
-      }
+      };
+
     case UPDATE_PROFILE:
       return {
         ...state,
+        message: 'Drop/ click to add profile image',
         isLoad: true,
         data: action.payload
-      }
+      };
+
+    case UPDATE_PROFILE_IMAGE:
+      return {
+        ...state,
+        message: action.message
+      };
 
     case FAIL_PROFILE:
-      console.log('log')
       return {
         ...state,
         isLoad: false,
         data: action.payload
-      }
+      };
 
     default:
       return {
         ...state,
         isLoad: false
-      }
+      };
   }
-}
+};
 
-
-export default getProfileReducer;
+export default userProfile;

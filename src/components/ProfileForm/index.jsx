@@ -1,124 +1,103 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import './ProfileForm.css';
+import { InputBox } from '../InputBox/index';
+import { TextArea } from '../TextArea/index';
 
-
-
-class ProfileForm extends Component {
-  alertError = (msg) => {
-    document.getElementById('error').innerHTML = `
-    <div class="alert alert-danger">
-      <strong>Danger!</strong> ${msg}
-    </div>
-    `
+export class ProfileForm extends Component {
+  state = {}
+  handleChange = (e) => {
+    let data = { [e.target.name]: e.target.value };
+    this.setState(data);
   }
-  removeError = () => {
-    document.getElementById('error').innerHTML = ``;
-  }
+
   updateProfile = (e) => {
-    const { user: { profileUpdateDispatch } } = this.props;
-
-    e.preventDefault()
-    let firstName = document.forms["profileForm"]["firstName"].value;
-    let lastName = document.forms["profileForm"]["lastName"].value;
-    let bio = document.forms["profileForm"]["bio"].value;
-    let gender = document.forms["profileForm"]["gender"].value;
-    switch (gender) {
-      case 'female':
-        gender = 'F'
-        break;
-      case 'male':
-        gender = "M"
-        break;
-      default:
-        gender = "N"
-    }
-    let data = {
-      first_name: firstName,
-      last_name: lastName,
-      gender: gender,
-      bio: bio
-    }
-    if (data.first_name === "") {
-      this.alertError('First name can not be empty')
-    }
-    else if (data.last_name === "") {
-      this.alertError('Last name can not be empty')
-    }
-    else if (data.bio === "") {
-      this.alertError('Bio cannot be empty')
-    }
-    else{
-      this.removeError()
-    profileUpdateDispatch(data);}
+    e.preventDefault();
+    const { updateProfile } = this.props;
+    const { username } = this.props;
+    updateProfile(username, this.state);
   }
+
   render() {
-    if (this.props.user.isLoad === false) {
-      return <div></div>
-    }
-    
-    const item = this.props.user.data.profile;
-    const gender = (item.gender === 'M' ? 'Male' : (item.gender === 'F' ? 'female' : 'Not important'))
+    const { user: { data: { profile } } } = this.props;
+    const { user: { data: { profile: { gender } } } } = this.props;
+    const genders = (gender === 'M' ? 'Male' : (gender === 'F' ? 'female' : 'Not important'));
+
     return (
-      <form name="profileForm" className="form-group" onSubmit={this.updateProfile}>
-        <div className="row">
-          <div className="col-md-12">
-            <div id="error"></div>
+      <form name='profileForm' className='form-group' onSubmit={this.handleChange}>
+        <div className='row'>
+          <div className='col-md-12'>
+            <div id='error' />
           </div>
-          <div className="col-md-4">
+          <div className='col-md-4'>
             <label>
-              <b> First Names </b>
-              {item.first_name}
+              <b> First Name </b>
+              {profile.first_name}
             </label>
-            <input
-              type="text"
-              className="form-control"
-              placeholder="Your first Name"
-              defaultValue={item.first_name}
-              name="firstName"
+            <InputBox
+              type='text'
+              className='form-control'
+              name='first_name'
+              placeholder='Your name'
+              value={profile.first_name}
+              onChange={this.handleChange}
             />
           </div>
-          <div className="col-md-4">
+          <div className='col-md-4'>
             <label>
               <b> Last Name  </b>
-              {item.last_name}
+              {profile.last_name}
             </label>
-            <input
-              type="text"
-              className="form-control"
-              placeholder="Your last Name"
-              defaultValue={item.last_name}
-              name="lastName"/>
+            <InputBox
+              type='text'
+              className='form-control'
+              name='last_name'
+              placeholder='Your name'
+              value={profile.last_name}
+              onChange={this.handleChange}
+            />
           </div>
-          <div className="col-md-4">
+          <div className='col-md-4'>
             <label>
               <b> Gender  </b>
-              {gender}
+              {genders}
             </label>
-            <select name="gender" className="form-control">
-              <option className="placeholder" selected disabled>{gender}</option>
-              <option>male</option>
-              <option>female</option>
-              <option>not important</option>
+            <select name='gender' className='form-control' onChange={this.handleChange}>
+              <option className='placeholder' selected disabled>{genders}</option>
+              <option value='M'>male</option>
+              <option value='F'>female</option>
+              <option value='N'>not important</option>
             </select>
           </div>
         </div>
-        <div className="row">
-          <div className="col-md-12">
+        <div className='row'>
+          <div className='col-md-12'>
             <label>
-              <b> bio  </b> <br />
+              <b> bio  </b>
+              <br />
+              {profile.bio}
             </label>
-            <textarea className="form-control" placeholder="You bio" rows="7" defaultValue={item.bio} name="bio">
-
-            </textarea> <br />
-            <input
-              type="submit"
-              value="Update"
-              className="btn btn-outline-success form-control" />
+            <TextArea
+              className='form-control'
+              name='bio'
+              id='bio'
+              rows='5'
+              placeholder='your bio'
+              onChange={this.handleChange}
+              value={profile.bio}
+            />
+            <br />
+            <button className="btn btn-info form-control" onClick={this.updateProfile} type="submit">Update</button>
           </div>
         </div>
       </form>
-    )
+    );
   }
 }
+ProfileForm.propTypes = {
+  user: PropTypes.object.isRequired,
+  updateProfile: PropTypes.object.isRequired,
+  username: PropTypes.object.isRequired
+};
 
 export default ProfileForm;

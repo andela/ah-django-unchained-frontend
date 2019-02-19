@@ -55,7 +55,7 @@ export class NavBar extends Component {
                   </Link>
                 </li>
                 <li className="nav-item active">
-                  <Link className="nav-link" to={`/profile/${localStorage.getItem('username')}`}>
+                  <Link className="nav-link" to={`/profile/update/${localStorage.getItem('username')}`}>
                     My Profile
                   </Link>
                 </li>

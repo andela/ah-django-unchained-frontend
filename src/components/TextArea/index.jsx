@@ -2,15 +2,17 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 export const TextArea = props => {
-  const { className, name, id, placeholder, onChange, row } = props;
+  const { className, name, id, placeholder, onChange, rows,cols, value } = props;
   return (
-    <TextArea
+    <textarea
       className={className}
       name={name}
       id={id}
-      row={row}
+      rows={rows}
+      cols={cols}
       placeholder={placeholder}
       onChange={onChange}
+      defaultValue={value}
     />
   );
 };
@@ -21,7 +23,9 @@ TextArea.propTypes = {
   placeholder: PropTypes.string.isRequired,
   id: PropTypes.string.isRequired,
   onChange: PropTypes.func.isRequired,
-  row: PropTypes.string.isRequired
+  rows: PropTypes.string.isRequired,
+  cols: PropTypes.string.isRequired,
+  value: PropTypes.string.isRequired
 };
 
 export default TextArea;

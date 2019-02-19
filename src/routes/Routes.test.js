@@ -11,8 +11,4 @@ describe('Routes', () => {
   it('should render the home route', () => {
     expect(wrapper.find({ path: '/' }).length).toBe(1);
   });
-
-  it('should render the signup route', () => {
-    expect(wrapper.find({ path: '/signup' }).length).toBe(1);
-  });
 });
