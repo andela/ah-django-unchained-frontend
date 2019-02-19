@@ -1,0 +1,212 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`The NavBar should match snapshot 1`] = `
+<Provider
+  store={
+    Object {
+      "dispatch": [Function],
+      "getState": [Function],
+      "replaceReducer": [Function],
+      "subscribe": [Function],
+      Symbol(observable): [Function],
+    }
+  }
+>
+  <MemoryRouter>
+    <Router
+      history={
+        Object {
+          "action": "POP",
+          "block": [Function],
+          "canGo": [Function],
+          "createHref": [Function],
+          "entries": Array [
+            Object {
+              "hash": "",
+              "key": "9wj23x",
+              "pathname": "/",
+              "search": "",
+              "state": undefined,
+            },
+          ],
+          "go": [Function],
+          "goBack": [Function],
+          "goForward": [Function],
+          "index": 0,
+          "length": 1,
+          "listen": [Function],
+          "location": Object {
+            "hash": "",
+            "key": "9wj23x",
+            "pathname": "/",
+            "search": "",
+            "state": undefined,
+          },
+          "push": [Function],
+          "replace": [Function],
+        }
+      }
+    >
+      <NavBar>
+        <div>
+          <Navbar
+            className="navbar navbar-expand-lg navbar bg-dark navbar-dark "
+            expand={false}
+            tag="nav"
+          >
+            <nav
+              className="navbar navbar-expand-lg navbar bg-dark navbar-dark  navbar"
+            >
+              <NavbarBrand
+                className="nav-link"
+                href="/"
+                tag="a"
+              >
+                <a
+                  className="nav-link navbar-brand"
+                  href="/"
+                >
+                  <img
+                    alt="Logo"
+                    src="logo.png"
+                  />
+                  Authors Haven
+                </a>
+              </NavbarBrand>
+              <NavbarToggler
+                onClick={[Function]}
+                tag="button"
+                type="button"
+              >
+                <button
+                  className="navbar-toggler"
+                  onClick={[Function]}
+                  type="button"
+                >
+                  <span
+                    className="navbar-toggler-icon"
+                  />
+                </button>
+              </NavbarToggler>
+              <Collapse
+                appear={false}
+                enter={true}
+                exit={true}
+                in={false}
+                isOpen={false}
+                mountOnEnter={false}
+                navbar={true}
+                onEnter={[Function]}
+                onEntered={[Function]}
+                onEntering={[Function]}
+                onExit={[Function]}
+                onExited={[Function]}
+                onExiting={[Function]}
+                tag="div"
+                timeout={350}
+                unmountOnExit={false}
+              >
+                <Transition
+                  appear={false}
+                  enter={true}
+                  exit={true}
+                  in={false}
+                  mountOnEnter={false}
+                  onEnter={[Function]}
+                  onEntered={[Function]}
+                  onEntering={[Function]}
+                  onExit={[Function]}
+                  onExited={[Function]}
+                  onExiting={[Function]}
+                  timeout={350}
+                  unmountOnExit={false}
+                >
+                  <div
+                    className="collapse navbar-collapse"
+                    style={Object {}}
+                  >
+                    <Nav
+                      className="ml-auto"
+                      tag="ul"
+                      vertical={false}
+                    >
+                      <ul
+                        className="ml-auto nav"
+                      >
+                        <ul
+                          className="container"
+                        >
+                          <li>
+                            <Link
+                              className="text-info nav-link"
+                              replace={false}
+                              to="signup"
+                            >
+                              <a
+                                className="text-info nav-link"
+                                href="/signup"
+                                onClick={[Function]}
+                              >
+                                SignUp
+                              </a>
+                            </Link>
+                          </li>
+                          <li>
+                            <Link
+                              className="text-info nav-link"
+                              replace={false}
+                              to="/login"
+                            >
+                              <a
+                                className="text-info nav-link"
+                                href="/login"
+                                onClick={[Function]}
+                              >
+                                Login
+                              </a>
+                            </Link>
+                          </li>
+                          <li>
+                            <Link
+                              className="text-info nav-link"
+                              replace={false}
+                              to="/draft"
+                            >
+                              <a
+                                className="text-info nav-link"
+                                href="/draft"
+                                onClick={[Function]}
+                              >
+                                View Drafts
+                              </a>
+                            </Link>
+                          </li>
+                          <li>
+                            <Link
+                              className="text-info nav-link"
+                              replace={false}
+                              to="/createArticle"
+                            >
+                              <a
+                                className="text-info nav-link"
+                                href="/createArticle"
+                                onClick={[Function]}
+                              >
+                                Create  Draft
+                              </a>
+                            </Link>
+                          </li>
+                        </ul>
+                      </ul>
+                    </Nav>
+                  </div>
+                </Transition>
+              </Collapse>
+            </nav>
+          </Navbar>
+        </div>
+      </NavBar>
+    </Router>
+  </MemoryRouter>
+</Provider>
+`;

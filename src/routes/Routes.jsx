@@ -10,6 +10,7 @@ import UpdatePassword from '../pages/UpdatePassword';
 import ArticleForm from '../pages/ArticleForm/index';
 import ViewDrafts from '../pages/ViewDraft/index';
 import UpdateArticle from '../pages/UpdateArticle/index';
+import CreateArticle from '../pages/CreateArticle/index';
 
 const Routes = () => {
   return (
@@ -26,6 +27,7 @@ const Routes = () => {
           <Route updatepublishedarticle path="/updatearticle" component={ArticleForm} />
           <Route draft path="/draft" component={ViewDrafts} />
           <Route updatearticle path="/updatearticle" component={UpdateArticle} />
+          <Route createArticle path="/createArticle" component={CreateArticle} />
         </Switch>
       </React.Fragment>
     </BrowserRouter>

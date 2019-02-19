@@ -52,6 +52,11 @@ class NavBar extends Component {
                       View Drafts
                     </Link>
                   </li>
+                  <li>
+                    <Link to="/createArticle" className="text-info nav-link">
+                      Create  Draft
+                    </Link>
+                  </li>
                 </ul>
               )}
             </Nav>

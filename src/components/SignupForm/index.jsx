@@ -78,14 +78,16 @@ const SignupForm = ({
 );
 
 SignupForm.propTypes = {
-  onSubmit: PropTypes.func.isRequired,
-  handleChange: PropTypes.func.isRequired,
+  onSubmit: PropTypes.func,
+  handleChange: PropTypes.func,
   emailErrorMessage: PropTypes.array,
   passwordErrorMessage: PropTypes.array,
   usernameErrorMessage: PropTypes.array
 };
 
 SignupForm.defaultProps = {
+  onSubmit: undefined,
+  handleChange: undefined,
   emailErrorMessage: null,
   passwordErrorMessage: null,
   usernameErrorMessage: null

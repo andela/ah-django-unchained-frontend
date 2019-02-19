@@ -7,6 +7,7 @@ import { resetReducer } from './modules/PasswordReset';
 import articleReducer from './modules/getArticles/index';
 import { singleArticle } from './modules/articleDetail/index';
 import { getDraftReducer }  from './modules/drafts/index';
+import { postArticleReducer, imageUploadReducer } from './modules/createArticle/index';
 
 const rootReducer = combineReducers({
   signUpReducer,
@@ -16,7 +17,9 @@ const rootReducer = combineReducers({
   updatepasswordReducer,
   articleReducer,
   singleArticle,
-  getDraftReducer
+  getDraftReducer,
+  postArticleReducer,
+  imageUploadReducer
 });
 
 export default rootReducer;
