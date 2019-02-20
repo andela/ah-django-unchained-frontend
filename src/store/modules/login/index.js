@@ -1,5 +1,5 @@
-import axios from 'axios';
 import { LOGIN_ERROR, LOGIN_SUCCESS, LOGIN_REQUEST } from './types';
+import { http } from '../../../utils/helpers/http';
 
 const initialState = {};
 
@@ -25,10 +25,8 @@ export const loginErrorAction = response => ({
 
 export const loginUser = userData => dispatch => {
   dispatch(loginRequestAction());
-  return axios
-    .post('http://127.0.0.1:8000/api/users/login/', {
-      user: userData
-    })
+  return http
+    .post('api/users/login/', { user: userData })
     .then(res => {
       dispatch(loginSuccessAction(res));
     })

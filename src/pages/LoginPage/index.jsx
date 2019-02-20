@@ -31,7 +31,7 @@ export class LoginPage extends Component {
       return <Redirect to="/" />;
     }
     return (
-      <div>
+      <div className='container'>
         <form onSubmit={this.handleSubmit}>
           <div className="row justify-content-center">
             <div className="col-md-6">
@@ -77,7 +77,7 @@ export class LoginPage extends Component {
                       Log In
                     </Button>
                     <p className="d-flex justify-content-center">
-                      Dont have an account? Sign up here!
+                      Dont have an account? Sign up here
                     </p>
                     <p className="d-flex justify-content-center">
                       Forgot password? Reset it here.
@@ -94,10 +94,10 @@ export class LoginPage extends Component {
 }
 
 export const mapStateToProps = state => ({
-  response: state.login.response,
-  errors: state.login.errors,
-  isLoggedIn: state.login.isLoggedIn,
-  isLoading: state.login.isLoading
+  response: state.loginReducer.response,
+  errors: state.loginReducer.errors,
+  isLoggedIn: state.loginReducer.isLoggedIn,
+  isLoading: state.loginReducer.isLoading
 });
 
 export const mapDispatchToProps = dispatch => ({

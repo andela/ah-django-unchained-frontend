@@ -59,7 +59,7 @@ describe('LoginPage', () => {
 
   describe('The mapStateToProps', () => {
     const state = {
-      login: {
+      loginReducer: {
         isLoading: false,
         errors: {},
         isLoggedIn: true,
@@ -67,7 +67,7 @@ describe('LoginPage', () => {
       }
     };
     const props = mapStateToProps(state);
-    expect(props).toEqual(state.login);
+    expect(props).toEqual(state.loginReducer);
   });
 
   describe('The mapDispatchToProps', () => {
