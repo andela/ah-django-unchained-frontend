@@ -2,9 +2,9 @@ import React, { Component } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { loginUser } from '../../store/modules/login/index';
-import { Button } from '../../components/Button/index';
-import { InputBox } from '../../components/InputBox/index';
+import { loginUser } from '../../store/modules/login';
+import { Button } from '../../components/Button';
+import { InputBox } from '../../components/InputBox';
 
 export class LoginPage extends Component {
   state = {
@@ -14,6 +14,7 @@ export class LoginPage extends Component {
   handleSubmit = e => {
     e.preventDefault();
     const { loginUser } = this.props;
+    console.log(this.props);
     const user = {
       email: this.state.email,
       password: this.state.password
@@ -31,7 +32,9 @@ export class LoginPage extends Component {
       return <Redirect to="/" />;
     }
     return (
-      <div className='container'>
+      <div className="container">
+        {
+        isLoggedIn ? <Redirect to='/' />:
         <form onSubmit={this.handleSubmit}>
           <div className="row justify-content-center">
             <div className="col-md-6">
@@ -73,9 +76,7 @@ export class LoginPage extends Component {
                       type="submit"
                       className="btn btn-info btn-block"
                       text="Log In"
-                    >
-                      Log In
-                    </Button>
+                    />
                     <p className="d-flex justify-content-center">
                       Dont have an account? Sign up here
                     </p>
@@ -88,6 +89,7 @@ export class LoginPage extends Component {
             </div>
           </div>
         </form>
+      }
       </div>
     );
   }

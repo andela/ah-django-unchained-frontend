@@ -1,37 +1,38 @@
-import { LOGIN_ERROR, LOGIN_SUCCESS, LOGIN_REQUEST } from './types';
+import { LOGIN_FAILED, LOGIN_SUCCESS, LOGIN_REQUEST } from './types';
 import { http } from '../../../utils/helpers/http';
 
 const initialState = {};
 
-export const loginRequestAction = () => ({
+export const loginUserRequest = () => ({
   type: LOGIN_REQUEST,
   isLoading: true,
   isLoggedIn: false
 });
 
-export const loginSuccessAction = response => ({
+export const loginUserSuccess = response => ({
   type: LOGIN_SUCCESS,
   isLoggedIn: true,
   isLoading: false,
   response
 });
 
-export const loginErrorAction = response => ({
-  type: LOGIN_ERROR,
+export const loginUserFailed = response => ({
+  type: LOGIN_FAILED,
   isLoggedIn: false,
   isLoading: false,
   response
 });
 
 export const loginUser = userData => dispatch => {
-  dispatch(loginRequestAction());
+  dispatch(loginUserRequest());
   return http
     .post('api/users/login/', { user: userData })
     .then(res => {
-      dispatch(loginSuccessAction(res));
+      localStorage.setItem('token', res.data.user.token);
+      dispatch(loginUserSuccess(res));
     })
     .catch(errors => {
-      dispatch(loginErrorAction(errors.response.data.errors.error));
+      dispatch(loginUserFailed(errors.response.data.errors.error));
     });
 };
 
@@ -44,7 +45,7 @@ export const loginReducer = (state = initialState, action) => {
         isLoggedIn: true,
         isLoading: false
       };
-    case LOGIN_ERROR:
+    case LOGIN_FAILED:
       return {
         ...state,
         response: action.payload,

@@ -1,5 +1,5 @@
 import React from 'react';
-import { shallow, mount } from 'enzyme';
+import { mount } from 'enzyme';
 import { mapStateToProps, mapDispatchToProps, LoginPage } from './index';
 
 describe('LoginPage', () => {
@@ -20,12 +20,6 @@ describe('LoginPage', () => {
   });
 
   it('should render the login page', () => {
-    const wrapper = shallow(<LoginPage />);
-    expect(wrapper.length).toBe(1);
-  });
-
-  it('should render the login page', () => {
-    const wrapper = shallow(<LoginPage />);
     expect(wrapper).toMatchSnapshot();
   });
 
