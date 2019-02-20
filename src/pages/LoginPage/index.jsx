@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import { Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { loginUser } from '../../store/modules/login/index';
 import { Button } from '../../components/Button/index';
 import { InputBox } from '../../components/InputBox/index';
 
-class LoginPage extends Component {
+export class LoginPage extends Component {
   state = {
     email: '',
     password: ''
@@ -25,8 +26,10 @@ class LoginPage extends Component {
   };
 
   render() {
-    const { errors } = this.props;
-    const loginErrors = errors ? errors : null;
+    const { errors, isLoggedIn } = this.props;
+    if (isLoggedIn === true) {
+      return <Redirect to="/" />;
+    }
     return (
       <div>
         <form onSubmit={this.handleSubmit}>
@@ -38,7 +41,7 @@ class LoginPage extends Component {
                 </header>
                 <article className="card-body">
                   <p className="d-flex justify-content-center bg-danger text-white">
-                    {loginErrors}
+                    {errors && errors}
                   </p>
                   <div className="form-group">
                     <label htmlFor="email">Email</label>
@@ -62,12 +65,15 @@ class LoginPage extends Component {
                       placeholder="Enter password"
                       className="form-control"
                       required
-                      pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
                       title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters"
                     />
                   </div>
                   <div className="form-group">
-                    <Button type="submit" className="btn btn-info btn-block" text='Log In'>
+                    <Button
+                      type="submit"
+                      className="btn btn-info btn-block"
+                      text="Log In"
+                    >
                       Log In
                     </Button>
                     <p className="d-flex justify-content-center">
@@ -87,12 +93,14 @@ class LoginPage extends Component {
   }
 }
 
-const mapStateToProps = state => ({
+export const mapStateToProps = state => ({
   response: state.login.response,
-  errors: state.login.errors
+  errors: state.login.errors,
+  isLoggedIn: state.login.isLoggedIn,
+  isLoading: state.login.isLoading
 });
 
-const mapDispatchToProps = dispatch => ({
+export const mapDispatchToProps = dispatch => ({
   loginUser: user => dispatch(loginUser(user))
 });
 

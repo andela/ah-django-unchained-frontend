@@ -1,26 +1,56 @@
-import loginReducer from'./index';
-import  * as actions from './types';
+import { loginReducer } from './index';
+import { LOGIN_REQUEST, LOGIN_SUCCESS, LOGIN_ERROR } from './types';
 
-it('should login successfully',()=>{
-    const state={};
+describe('Login reducer', () => {
 
-    const loginSuccessful={
-        type: actions.LOGIN_SUCCESS,
-        // response: {
-        //     data: {
-        //       user: {
-        //         email: 'maggy@me.com',
-        //         username: 'maggyisme',
-        //       }
-        //     },
-            status: 200,
-            statusText: 'OK',
-        // }
-        }
-        const expectedResult={
-            //type:'LOGIN_SUCCESS',
-            status: 200,
-            statusText: 'OK'
-        }
-        expect(loginReducer(state,loginSuccessful)).toEqual(expectedResult);
-})
+    it('should return the initial state', () => {
+        const expectedData={};
+        expect(loginReducer(undefined, {})).toEqual(expectedData);
+    });
+
+    it('should handle login request', () => {
+        const state={};
+
+        const userData={
+            type: LOGIN_REQUEST,
+            isLoading: true,
+            isLoggedIn: false
+         };
+
+        const expectedData={};
+        expect(loginReducer(state, userData)).toEqual(expectedData);
+    });
+
+    it('should handle login success', () => {
+        const state={};
+
+        const userData={
+            type: LOGIN_SUCCESS,
+            isLoggedIn: true,
+            isLoading: false,
+          };
+
+        const expectedData={
+            isLoggedIn: true,
+            isLoading: false,
+        };
+        expect(loginReducer(state, userData)).toEqual(expectedData);
+    });
+
+    it('should handle login failure', () => {
+        const state={};
+
+        const userData={
+            type: LOGIN_ERROR,
+            isLoggedIn: false,
+            isLoading: false,
+          };
+
+        const expectedData={
+            isLoggedIn: false,
+            isLoading: false,
+        };
+        expect(loginReducer(state, userData)).toEqual(expectedData);
+    });
+
+});

@@ -6,14 +6,13 @@ const initialState = {};
 export const loginRequestAction = () => ({
   type: LOGIN_REQUEST,
   isLoading: true,
-  success: false
+  isLoggedIn: false
 });
 
 export const loginSuccessAction = response => ({
   type: LOGIN_SUCCESS,
   isLoggedIn: true,
   isLoading: false,
-  success: true,
   response
 });
 
@@ -21,13 +20,12 @@ export const loginErrorAction = response => ({
   type: LOGIN_ERROR,
   isLoggedIn: false,
   isLoading: false,
-  success: false,
   response
 });
 
 export const loginUser = userData => dispatch => {
   dispatch(loginRequestAction());
-  axios
+  return axios
     .post('http://127.0.0.1:8000/api/users/login/', {
       user: userData
     })
@@ -35,20 +33,26 @@ export const loginUser = userData => dispatch => {
       dispatch(loginSuccessAction(res));
     })
     .catch(errors => {
-      dispatch(loginErrorAction(errors));
+      dispatch(loginErrorAction(errors.response.data.errors.error));
     });
 };
 
 export const loginReducer = (state = initialState, action) => {
   switch (action.type) {
     case LOGIN_SUCCESS:
-      localStorage.setItem('token', action.response.data.user.token);
       return {
-        response: action.payload
+        ...state,
+        response: action.payload,
+        isLoggedIn: true,
+        isLoading: false
       };
     case LOGIN_ERROR:
       return {
-        errors: action.response.response.data.errors.error[0]
+        ...state,
+        response: action.payload,
+        isLoggedIn: false,
+        isLoading: false,
+        errors: action.response
       };
     default:
       return state;
