@@ -1,0 +1,24 @@
+{
+    "name": "ah-django-unchained-frontend",
+    "scripts": {},
+    "env": {
+      "NODE_ENV": {
+        "required": true
+      },
+      "REACT_APP_BASE_URL": {
+        "required": true
+      }
+    },
+    "formation": {
+      "web": {
+        "quantity": 1
+      }
+    },
+    "addons": [],
+    "buildpacks": [
+      {
+        "url": "heroku/nodejs"
+      }
+    ],
+    "stack": "heroku-18"
+  }
