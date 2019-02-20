@@ -30,6 +30,7 @@ export const loginUser = userData => dispatch => {
     .post('api/users/login/', { user: userData })
     .then(res => {
       localStorage.setItem('token', res.data.user.token);
+      localStorage.setItem('username', res.data.user.username);
       toast.success('Login Successful');
       dispatch(loginUserSuccess(res));
     })

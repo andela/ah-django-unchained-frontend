@@ -8,6 +8,7 @@ describe('ArticleDetail', () => {
   let state;
   let dispatch;
   let propsMaped;
+  let wrapperInstance;
 
   beforeEach(() => {
     props = {
@@ -15,28 +16,45 @@ describe('ArticleDetail', () => {
         data: {
           title: 'title',
           description: 'description',
-          body: 'body'
+          body: 'body',
+          slug: 'slug'
         },
+
         IsFetching: true,
         IsFound: true
+      },
+
+      data: {
+        slug: 'slug'
+      },
+
+      ratingReducer: {
+        ratingResponse: {
+          message: 'Article successfully rated',
+          rating: 1,
+          average_rating: 2.5
+        }
       },
       getSingleArticle: jest.fn(),
       match: {
         params: {
           article: 'article'
         }
-      }
+      },
+      postRating: jest.fn(() => Promise.resolve())
     };
 
     state = {
       singleArticle: {
-        data: {},
-      }
+        data: {}
+      },
+      ratingReducer: {}
     };
 
     dispatch = jest.fn(() => Promise.resolve());
     propsMaped = mapDispatchToProps(dispatch);
     wrapper = shallow(<ArticleDetail {...props} />);
+    wrapperInstance = wrapper.instance();
   });
 
   it('should match snapshot', () => {
@@ -45,7 +63,9 @@ describe('ArticleDetail', () => {
 
   it('should call getSingleArticle when component is mounted', () => {
     shallow(<ArticleDetail {...props} />);
-    expect(props.getSingleArticle).toHaveBeenCalledWith(props.match.params.article);
+    expect(props.getSingleArticle).toHaveBeenCalledWith(
+      props.match.params.article
+    );
   });
 
   it('should map the state to props', () => {
@@ -56,5 +76,10 @@ describe('ArticleDetail', () => {
   it('should dispatch to props', () => {
     propsMaped.getSingleArticle();
     expect(dispatch).toHaveBeenCalled();
+  });
+
+  it('should execute  postRating onStarClick', () => {
+    wrapperInstance.onStarClick(2);
+    expect(props.postRating).toHaveBeenCalled();
   });
 });

@@ -8,6 +8,7 @@ import articleReducer from './modules/getArticles/index';
 import { singleArticle } from './modules/articleDetail/index';
 import { getDraftReducer }  from './modules/drafts/index';
 import { postArticleReducer, imageUploadReducer } from './modules/createArticle/index';
+import { ratingReducer } from './modules/articleRating/index';
 
 const rootReducer = combineReducers({
   signUpReducer,
@@ -19,7 +20,8 @@ const rootReducer = combineReducers({
   singleArticle,
   getDraftReducer,
   postArticleReducer,
-  imageUploadReducer
+  imageUploadReducer,
+  ratingReducer
 });
 
 export default rootReducer;

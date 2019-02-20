@@ -23,7 +23,7 @@ exports[`The NavBar should match snapshot 1`] = `
           "entries": Array [
             Object {
               "hash": "",
-              "key": "9wj23x",
+              "key": "orpyrx",
               "pathname": "/",
               "search": "",
               "state": undefined,
@@ -37,7 +37,7 @@ exports[`The NavBar should match snapshot 1`] = `
           "listen": [Function],
           "location": Object {
             "hash": "",
-            "key": "9wj23x",
+            "key": "orpyrx",
             "pathname": "/",
             "search": "",
             "state": undefined,

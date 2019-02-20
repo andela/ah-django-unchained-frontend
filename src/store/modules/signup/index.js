@@ -31,6 +31,7 @@ export const registerUser = user => dispatch => {
       toast.success('Account created successfully');
       dispatch(signupSuccessAction(response));
       localStorage.setItem('token', res.data.user.token);
+      localStorage.setItem('username', res.data.user.username);
     })
     .catch(errors => {
       const { data } = errors.response;
