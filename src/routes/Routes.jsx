@@ -9,6 +9,7 @@ import ResetPassword from '../pages/PassswordReset';
 import UpdatePassword from '../pages/UpdatePassword';
 import ArticleForm from '../pages/ArticleForm/index';
 import ViewDrafts from '../pages/ViewDraft/index';
+import UpdateArticle from '../pages/UpdateArticle/index';
 
 const Routes = () => {
   return (
@@ -24,6 +25,7 @@ const Routes = () => {
           <Route passwordupdate path='/api/users/passwordresetdone/:token' component={UpdatePassword} />
           <Route updatepublishedarticle path="/updatearticle" component={ArticleForm} />
           <Route draft path="/draft" component={ViewDrafts} />
+          <Route updatearticle path="/updatearticle" component={UpdateArticle} />
         </Switch>
       </React.Fragment>
     </BrowserRouter>
