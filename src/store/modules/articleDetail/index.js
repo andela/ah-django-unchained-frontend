@@ -1,55 +1,66 @@
-import  {ARTICLE_SUCCESS, ARTICLE_FAIL} from './type';
-import http from '../../../utils/helpers/http';
+import { GET_SINGLE_ARTICLE_SUCCESS, GET_SINGLE_ARTICLE_FAIL, GET_SINGLE_ARTICLE_REQUEST } from './type';
+import {http} from '../../../utils/helpers/http';
 
-//  Actions for getting single profle
-const getSingleArticleAction = payload => ({
-  type: ARTICLE_SUCCESS,
+//  Actions for getting single article
+const getSingleArticleRequest = () => ({
+  type: GET_SINGLE_ARTICLE_REQUEST
+});
+
+const getSingleArticleSuccess = payload => ({
+  type: GET_SINGLE_ARTICLE_SUCCESS,
   payload
 });
 
-const  failSingleArticleAction = payload  => ({
-  type: ARTICLE_FAIL,
+const getSingleArticleFail = payload => ({
+  type: GET_SINGLE_ARTICLE_FAIL,
   payload
 });
-
 
 // dispatcher for getting single article
-export const getSingleArticleDispatch = article => dispatch => {
+export const getSingleArticle = article => dispatch => {
+  dispatch(getSingleArticleRequest());
   return http.get(`api/articles/${article}/`)
     .then((res) => {
-      if (res.data === {'detail': 'Not found.' }){
-        dispatch(failSingleArticleAction(res.data));
-      }
-      dispatch(getSingleArticleAction(res.data));
+      dispatch(getSingleArticleSuccess(res.data));
     })
     .catch((error) => {
-      dispatch(failSingleArticleAction(error));
+      dispatch(getSingleArticleFail(error));
     });
 };
 
 // reducers for articles
-const singleArticleReducer = (state = {data: {}}, action) =>{
-  switch(action.type){
-    case ARTICLE_SUCCESS:
+export const singleArticle = (state = { data: {} }, action) => {
+  switch (action.type) {
+    case GET_SINGLE_ARTICLE_REQUEST:
       return {
         ...state,
-        isFetch: true,
+        isFetching: true,
+        isFound: true,
+      };
+
+    case GET_SINGLE_ARTICLE_SUCCESS:
+      return {
+        ...state,
+        isFetching: false,
+        isFound: true,
         data: action.payload
       };
 
-    case ARTICLE_FAIL:
-    return {
-      ...state,
-      isFetch:false,
-      data: action.payload
-    };
+    case GET_SINGLE_ARTICLE_FAIL:
+      return {
+        ...state,
+        isFetching: false,
+        isFound: false,
+        data: action.payload
+      };
 
     default:
-      return{
+      return {
         ...state,
-        isFetch:false
+        isFound: true,
+        isFetching: false
       };
   }
 };
 
-export default singleArticleReducer;
+export default singleArticle;
