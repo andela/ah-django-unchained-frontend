@@ -18,7 +18,11 @@ const Routes = () => {
         <Switch>
           <Route exact path='/' component={Home} />
           <Route signup path='/signup' component={SignupPage} />
+<<<<<<< HEAD
           <Route one path='/article/:article' component={ArticleDetail} />
+=======
+          <Route exact path='/article/:article' component={ArticleDetail} />
+>>>>>>> feat(article) get one article
           <Route login path="/login" component={LoginPage} />
           <Route passwordrest path='/passwordreset' component={ResetPassword} />
           <Route passwordupdate path='/api/users/passwordresetdone/:token' component={UpdatePassword} />
