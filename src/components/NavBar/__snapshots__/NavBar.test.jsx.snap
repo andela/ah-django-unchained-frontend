@@ -23,7 +23,7 @@ exports[`The NavBar should match snapshot 1`] = `
           "entries": Array [
             Object {
               "hash": "",
-              "key": "b71q9b",
+              "key": "024jwa",
               "pathname": "/",
               "search": "",
               "state": undefined,
@@ -37,7 +37,7 @@ exports[`The NavBar should match snapshot 1`] = `
           "listen": [Function],
           "location": Object {
             "hash": "",
-            "key": "b71q9b",
+            "key": "024jwa",
             "pathname": "/",
             "search": "",
             "state": undefined,
@@ -163,6 +163,21 @@ exports[`The NavBar should match snapshot 1`] = `
                                 onClick={[Function]}
                               >
                                 Login
+                              </a>
+                            </Link>
+                          </li>
+                          <li>
+                            <Link
+                              className="text-info nav-link"
+                              replace={false}
+                              to="/draft"
+                            >
+                              <a
+                                className="text-info nav-link"
+                                href="/draft"
+                                onClick={[Function]}
+                              >
+                                View Drafts
                               </a>
                             </Link>
                           </li>

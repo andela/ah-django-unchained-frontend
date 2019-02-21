@@ -1,5 +1,5 @@
 import  {ARTICLE_SUCCESS, ARTICLE_FAIL} from './type';
-import http from '../../../utils/helpers/http';
+import {http} from '../../../utils/helpers/http';
 
 //  Actions for getting single profle
 const getSingleArticleAction = payload => ({
