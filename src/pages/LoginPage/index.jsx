@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 import { loginUser } from '../../store/modules/login';
 import { Button } from '../../components/Button';
 import { InputBox } from '../../components/InputBox';
+import SocialAuth from '../SocialAuth/index';
 
 export class LoginPage extends Component {
   state = {
@@ -90,6 +91,10 @@ export class LoginPage extends Component {
           </div>
         </form>
       }
+        <div className='social-login'>
+          <h4>Login With</h4>
+          <SocialAuth />
+        </div>
       </div>
     );
   }

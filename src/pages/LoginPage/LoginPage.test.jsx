@@ -1,5 +1,5 @@
 import React from 'react';
-import { mount } from 'enzyme';
+import { shallow } from 'enzyme';
 import { mapStateToProps, mapDispatchToProps, LoginPage } from './index';
 
 describe('LoginPage', () => {
@@ -15,7 +15,7 @@ describe('LoginPage', () => {
         Promise.resolve();
       })
     };
-    wrapper = mount(<LoginPage {...props} />);
+    wrapper = shallow(<LoginPage {...props} />);
     wrapperInstance = wrapper.instance();
   });
 
