@@ -1,53 +1,93 @@
-import React from 'react';
-import { FaStar, FaThumbsUp, FaThumbsDown  } from 'react-icons/fa';
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
+import ReactHtmlParser from 'react-html-parser';
+import StarRatings from 'react-star-ratings';
+import { getSingleArticle } from '../../store/modules/articleDetail/index';
+import { NotFound } from '../../components/NotFound/index';
+import Loader from '../../components/Loader/index';
+import './ArticleDetail.scss';
 
-const ArticleDetail = () => {
-  return (
-    <div className="container">
-      <div className="card bg-light text-dark">
-        <div className="card-body">
-          <h4 className="card-title">Article title</h4>
-          <a href="/" className="card-link text-warning"><FaStar /></a>
-          <a href="/" className="card-link text-warning"><FaStar /></a>
-          <a href="/" className="card-link text-warning"><FaStar /></a>
-          <p className="card-text">
-            Lorem Ipsum is simply dummy text of the printing and typesetting industry.
-            Lorem Ipsum has been the industrys standard dummy text ever since the 1500s,
-            when an unknown printer took a galley of type and scrambled it to make a type specimen book.
-            It has survived not only five centuries, but also the leap into electronic typesetting,
-            remaining essentially unchanged.
-          </p>
-          <p className="card-text">
-            Lorem Ipsum is simply dummy text of the printing and typesetting industry.
-            Lorem Ipsum has been the industrys standard dummy text ever since the 1500s,
-            when an unknown printer took a galley of type and scrambled it to make a type specimen book.
-            It has survived not only five centuries, but also the leap into electronic typesetting,
-            remaining essentially unchanged.
-          </p>
-          <p className="card-text">
-            Lorem Ipsum is simply dummy text of the printing and typesetting industry.
-            Lorem Ipsum has been the industrys standard dummy text ever since the 1500s,
-            when an unknown printer took a galley of type and scrambled it to make a type specimen book.
-            It has survived not only five centuries, but also the leap into electronic typesetting,
-            remaining essentially unchanged.
-          </p>
-          <a href="/" className="card-link btn btn-info">
-            <FaThumbsUp />
-          </a>
-          <a href="/" className="card-link btn btn-info">
-            <FaThumbsDown />
-          </a>
-          <a href="/" className="card-link btn btn-info">Read</a>
-          <a href="/" className="card-link btn btn-info">Bookmark</a>
-          <span className="card-link"> Rating </span>
-          <a href="/" className="card-link text-warning"><FaStar /></a>
-          <a href="/" className="card-link text-warning"><FaStar /></a>
-          <a href="/" className="card-link text-warning"><FaStar /></a>
-          <a href="/" className="card-link text-warning"><FaStar /></a>
-        </div>
-      </div>
-    </div>
-  );
+export class ArticleDetail extends Component {
+  componentDidMount() {
+    const { match, getSingleArticle } = this.props;
+    getSingleArticle(match.params.article);
+  }
+
+  render() {
+    const { isFetching, isFound, data } = this.props;
+    return (
+      <React.Fragment>
+        {isFetching === true ? <Loader /> :
+          isFound === true ?
+            <div className="container">
+              <div className="card bg-light text-dark">
+                <div className="card-body">
+                  <div className="text-center">
+                    {data.images === '' ?
+                      <img src='https://www.maketecheasier.com/assets/uploads/2018/02/mac-no-camera-feature-image.png' alt="" /> :
+                      <img src={data.images} alt="" />
+                    }
+                  </div>
+
+                  <h1 className="card-title text-center text-info">{data.title}</h1>
+                  <h2 className="text-center text-success">{data.description}</h2>
+                  <div class="text-center">
+                    <StarRatings
+                      rating={data.average_rating}
+                      name='rating'
+                      starDimension="20px"
+                      starRatedColor="green"
+                    />
+                  </div>
+                  <br />
+                  <span>
+                    <b>Last modified at: </b>
+                    {new Date(data.modified).toDateString()}
+                  </span>
+                  <p>
+                    {ReactHtmlParser(data.body)}
+                    <br />
+                    by :
+                    <b>{data.author}</b>
+                  </p>
+                  <span>Tags</span> 
+                  <br />
+                  {
+                    data.tagList !== undefined ?
+                      data.tagList.map(item => {
+                        return (
+                          <span className="card-link badge badge-success">{item}</span>
+                        );
+                      }) :
+                      null
+                  }
+                </div>
+              </div>
+            </div>
+            : <NotFound />
+        }
+      </React.Fragment>
+    );
+  }
+}
+
+ArticleDetail.propTypes = {
+  match: PropTypes.object.isRequired,
+  data: PropTypes.object.isRequired,
+  isFound: PropTypes.bool.isRequired,
+  isFetching: PropTypes.bool.isRequired,
+  getSingleArticle: PropTypes.object.isRequired
 };
 
-export default ArticleDetail;
+export const mapStateToProps = (state) => ({
+  isFetching: state.singleArticle.isFetching,
+  isFound: state.singleArticle.isFound,
+  data: state.singleArticle.data
+});
+
+export const mapDispatchToProps = dispatch => ({
+  getSingleArticle: (article) => dispatch(getSingleArticle(article))
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(ArticleDetail);
