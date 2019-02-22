@@ -47,6 +47,11 @@ class NavBar extends Component {
                       Login
                     </Link>
                   </li>
+                  <li>
+                    <Link to="/draft" className="text-info nav-link">
+                      View Drafts
+                    </Link>
+                  </li>
                 </ul>
               )}
             </Nav>

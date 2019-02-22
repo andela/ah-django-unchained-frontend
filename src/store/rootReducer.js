@@ -6,6 +6,7 @@ import { updatepasswordReducer } from './modules/UpdatePassword';
 import { resetReducer } from './modules/PasswordReset';
 import articleReducer from './modules/getArticles/index';
 import { singleArticle } from './modules/articleDetail/index';
+import { getDraftReducer }  from './modules/drafts/index';
 
 const rootReducer = combineReducers({
   signUpReducer,
@@ -14,7 +15,8 @@ const rootReducer = combineReducers({
   resetReducer,
   updatepasswordReducer,
   articleReducer,
-  singleArticle
+  singleArticle,
+  getDraftReducer
 });
 
 export default rootReducer;

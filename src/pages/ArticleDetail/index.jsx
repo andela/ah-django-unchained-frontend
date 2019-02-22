@@ -11,6 +11,7 @@ import './ArticleDetail.scss';
 export class ArticleDetail extends Component {
   componentDidMount() {
     const { match, getSingleArticle } = this.props;
+
     getSingleArticle(match.params.article);
   }
 
@@ -29,10 +30,9 @@ export class ArticleDetail extends Component {
                       <img src={data.images} alt="" />
                     }
                   </div>
+                  {this.props.data['is_published']&&(
+                  <div className="text-center">
 
-                  <h1 className="card-title text-center text-info">{data.title}</h1>
-                  <h2 className="text-center text-success">{data.description}</h2>
-                  <div class="text-center">
                     <StarRatings
                       rating={data.average_rating}
                       name='rating'
@@ -40,6 +40,11 @@ export class ArticleDetail extends Component {
                       starRatedColor="green"
                     />
                   </div>
+                    )}
+        
+
+                  <h1 className="card-title text-center text-info">{data.title}</h1>
+                  <h2 className="text-center text-success">{data.description}</h2>
                   <br />
                   <span>
                     <b>Last modified at: </b>

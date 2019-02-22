@@ -107,7 +107,7 @@ export const mapStateToProps = state => ({
   response: state.loginReducer.response,
   errors: state.loginReducer.errors,
   isLoggedIn: state.loginReducer.isLoggedIn,
-  isLoading: state.loginReducer.isLoading
+  isLoading: state.loginReducer.isLoading,
 });
 
 export const mapDispatchToProps = dispatch => ({
