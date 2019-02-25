@@ -36,12 +36,16 @@ describe('ArticleDetail', () => {
         }
       },
       getSingleArticle: jest.fn(),
+      deleteArticle: jest.fn(),
       match: {
         params: {
           article: 'article'
         }
       },
-      postRating: jest.fn(() => Promise.resolve())
+      postRating: jest.fn(() => Promise.resolve()),
+      deletedStatus: {
+        is_deleted: true
+      }
     };
 
     state = {
@@ -69,8 +73,30 @@ describe('ArticleDetail', () => {
   });
 
   it('should map the state to props', () => {
+    const state = {
+      deleteArticleReducer: {
+        errors: {},
+        response: {},
+        isDeleted: false
+      },
+      singleArticle: {
+        isFetching: false,
+        isFound: false,
+        data: {}
+      },
+      ratingReducer: {
+        ratingResponse: undefined
+      }
+    };
     const props = mapStateToProps(state);
-    expect(props).toEqual(state.singleArticle);
+    expect(props.errors).toEqual(state.deleteArticleReducer.errors);
+    expect(props.response).toEqual(state.deleteArticleReducer.response);
+    expect(props.isDeleted).toEqual(state.deleteArticleReducer.isDeleted);
+    expect(props.isFetching).toEqual(state.singleArticle.isFetching);
+    expect(props.isFound).toEqual(state.singleArticle.isFound);
+    expect(props.data).toEqual(state.singleArticle.data);
+    expect(props.ratingResponse).toEqual(state.ratingReducer.ratingResponse);
+
   });
 
   it('should dispatch to props', () => {
@@ -81,5 +107,10 @@ describe('ArticleDetail', () => {
   it('should execute  postRating onStarClick', () => {
     wrapperInstance.onStarClick(2);
     expect(props.postRating).toHaveBeenCalled();
+  });
+
+  it('should execute onClickHandler on buton click', () => {
+    wrapperInstance.onClickHandler();
+    expect(props.deleteArticle).toHaveBeenCalled();
   });
 });
