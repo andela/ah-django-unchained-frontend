@@ -1,3 +1,4 @@
+import { toast } from 'react-toastify';
 import * as action_type from './types';
 import { http } from '../../../utils/helpers/http';
 
@@ -47,6 +48,7 @@ export const authenticateUser = res => dispatch => {
     .post('/api/login/oauth/', res)
     .then(response => {
       localStorage.setItem('token', response.data.token);
+      toast.success('Login successful');
       dispatch(authenticateUserSuccess(response.data));
     })
     .catch(err => {

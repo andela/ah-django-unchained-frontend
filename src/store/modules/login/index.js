@@ -1,3 +1,4 @@
+import { toast } from 'react-toastify';
 import { LOGIN_FAILED, LOGIN_SUCCESS, LOGIN_REQUEST } from './types';
 import { http } from '../../../utils/helpers/http';
 
@@ -29,9 +30,11 @@ export const loginUser = userData => dispatch => {
     .post('api/users/login/', { user: userData })
     .then(res => {
       localStorage.setItem('token', res.data.user.token);
+      toast.success('Login Successful');
       dispatch(loginUserSuccess(res));
     })
     .catch(errors => {
+      toast.error(errors.response.data.errors.error[0]);
       dispatch(loginUserFailed(errors.response.data.errors.error));
     });
 };

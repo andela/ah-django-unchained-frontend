@@ -1,4 +1,5 @@
 //Action creators for sign up
+import { toast } from 'react-toastify';
 import { SIGNUP_REQUEST, SIGNUP_SUCCESS, SIGNUP_FAILURE } from './types';
 import { http } from '../../../utils/helpers/http';
 
@@ -27,6 +28,7 @@ export const registerUser = user => dispatch => {
     .post('api/users/', { user })
     .then(res => {
       const { response } = res.data;
+      toast.success('Account created successfully');
       dispatch(signupSuccessAction(response));
     })
     .catch(errors => {
