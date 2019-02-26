@@ -19,7 +19,7 @@ export class HomePage extends Component {
           <Loader />
         ) : articles.articles.length ? (
           articles.articles.map(article => {
-            return <ArticlePanel article={article} />;
+            return <ArticlePanel article={article} isPublished={true}/>;
           })
         ) : (
           <div className="container">
