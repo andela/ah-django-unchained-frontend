@@ -4,9 +4,29 @@ import ArticlePanel from './index';
 
 describe('ArticlePanel', () => {
   let wrapper;
+  let props;
 
   beforeEach(() => {
-    wrapper = shallow(<ArticlePanel />);
+    props = {
+      article: [
+        {
+          id: 1,
+          title: 'title',
+          slug: 'slug',
+          description: ' desc',
+          body: 'body'
+        },
+        {
+          id: 2,
+          title: 'title2',
+          slug: 'slug2',
+          description: ' desc2',
+          body: 'body2'
+        }
+      ],
+      getallArticles: jest.fn()
+    };
+    wrapper = shallow(<ArticlePanel {...props} />);
   });
 
   it('should match snapshot', () => {
