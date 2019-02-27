@@ -16,6 +16,7 @@ import {
   likeArticle,
   dislikeArticle
 } from '../../store/modules/likeDislikeArticle/index';
+import {publishArticle} from '../../store/modules/publishArticle/index';
 
 export class ArticleDetail extends Component {
   state = {
@@ -67,6 +68,14 @@ export class ArticleDetail extends Component {
     dislikeArticle(data.slug);
   };
 
+  handleClick = () => {
+    const { publishArticle, match, history } = this.props;
+    const payload = {	'is_published':true };
+    const slug = match.params.article;
+    publishArticle(slug, payload ).then(() => history.push('/'));
+
+  };
+
   render() {
     const {
       match,
@@ -75,8 +84,10 @@ export class ArticleDetail extends Component {
       data,
       isDeleted,
       ratingResponse,
-      isLoggedIn
+      isLoggedIn,
+      isPublishLoading
     } = this.props;
+    
     const { rate } = this.state;
     const loggedIn = localStorage.getItem('token');
     const username = localStorage.getItem('username');
@@ -84,19 +95,32 @@ export class ArticleDetail extends Component {
       <React.Fragment>
         {isDeleted === true ? (
           <Redirect to="/" />
-        ) : isFetching === true ? (
+        ) : isFetching || isPublishLoading ? (
           <Loader />
         ) : isFound === true ? (
           <div className="container">
-            <Button
-              className="btn btn-danger offset-md-9 col-3"
-              text="Delete Article"
-              onClick={this.onClickHandler}
-            />
+            <div className='row'>
+              <Button
+                className="btn btn-danger col-3"
+                text="Delete Article"
+                onClick={this.onClickHandler}
+              />
+              <div className='col-3 col-lg' />
+              {data['is_published']===false && (
+                <Button
+                  className='btn btn-info col-3'
+                  text='Publish Article'
+                  onClick={this.handleClick}
+                />
+              )}
+
+            </div>
+
             <br />
             <br />
             <div className="card bg-light text-dark">
               <div className="card-body">
+
                 <div className="text-center">
                   {data.images === '' ? (
                     <img
@@ -195,7 +219,9 @@ export const mapStateToProps = state => ({
   isDeleted: state.deleteArticleReducer.isDeleted,
   ratingResponse: state.ratingReducer.ratingResponse,
   isLoggedIn: state.loginReducer.isLoggedIn,
-  likeDislikeArticle: state.likeDislikeArticle.likesDislikes
+  likeDislikeArticle: state.likeDislikeArticle.likesDislikes,
+  isPublishLoading: state.publish.isFetching,
+  isSuccesfull: state.publish.isSuccesfull
 });
 
 ArticleDetail.propTypes = {
@@ -215,7 +241,8 @@ export const mapDispatchToProps = dispatch => ({
   deleteArticle: (article, deletedStatus) =>
     dispatch(deleteArticle(article, deletedStatus)),
   likeArticle: slug => dispatch(likeArticle(slug)),
-  dislikeArticle: slug => dispatch(dislikeArticle(slug))
+  dislikeArticle: slug => dispatch(dislikeArticle(slug)),
+  publishArticle: (slug, payload) => dispatch(publishArticle(slug, payload))
 });
 
 export default connect(

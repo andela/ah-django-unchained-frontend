@@ -15,6 +15,7 @@ import { resetReducer } from './modules/PasswordReset';
 import { deleteArticleReducer } from './modules/deleteArticle';
 import  userProfile  from './modules/profile/index';
 import { likeDislikeArticle } from './modules/likeDislikeArticle/index';
+import {publish} from './modules/publishArticle';
 
 const rootReducer = combineReducers({
   signUpReducer,
@@ -30,7 +31,8 @@ const rootReducer = combineReducers({
   ratingReducer,
   deleteArticleReducer,
   userProfile,
-  likeDislikeArticle
+  likeDislikeArticle,
+  publish
 });
 
 export default rootReducer;

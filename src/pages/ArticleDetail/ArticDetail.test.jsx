@@ -11,6 +11,7 @@ describe('ArticleDetail', () => {
 
   beforeEach(() => {
     props = {
+      publish: {},
       singleArticle: {
         data: {
           title: 'title',
@@ -45,7 +46,11 @@ describe('ArticleDetail', () => {
         is_deleted: true
       },
       likes_count: 2,
-      dislikes_count: 3
+      dislikes_count: 3,
+      publishArticle: jest.fn(() => Promise.resolve()),
+      history: {
+        push: jest.fn()
+      },
     };
 
     dispatch = jest.fn(() => Promise.resolve());
@@ -77,13 +82,14 @@ describe('ArticleDetail', () => {
         isFound: false,
         data: {}
       },
+      publish: {isFetching: false},
       ratingReducer: {
         ratingResponse: undefined
       },
       loginReducer: {
         isLoggedIn: true
       },
-      likeDislikeArticle: {}
+      likeDislikeArticle: {},
     };
     const props = mapStateToProps(state);
     expect(props.errors).toEqual(state.deleteArticleReducer.errors);
@@ -97,9 +103,10 @@ describe('ArticleDetail', () => {
       state.singleArticle.likeDislikeArticle
     );
     expect(props.loginReducer).toEqual(state.singleArticle.loginReducer);
+    expect(props.isPublishLoading).toEqual(state.publish.isFetching);
   });
 
-  it('should dispatch to props', () => {
+  it('should dispatch getSingleArticle to props', () => {
     propsMaped.getSingleArticle();
     expect(dispatch).toHaveBeenCalled();
   });
@@ -138,5 +145,20 @@ describe('ArticleDetail', () => {
     wrapperInstance.componentWillReceiveProps(nextProps);
     expect('likes_count' in props).toEqual(true);
     expect('dislikes_count' in props).toEqual(true);
+  });
+
+  it('should dispatch publishArticle to props', () => {
+    propsMaped.publishArticle();
+    expect(dispatch).toHaveBeenCalled();
+  });
+
+  it('handle publish', () => {
+    const flushPromise = () => new Promise((resolve) => setImmediate(resolve));
+    const wrapperInstance = wrapper.instance();
+    wrapperInstance.handleClick();
+    expect(props.publishArticle).toHaveBeenCalledWith(props.match.params.article, {	'is_published':true });
+    return flushPromise().then(() => {
+      expect(props.history.push).toHaveBeenCalledWith('/');
+    });
   });
 });
