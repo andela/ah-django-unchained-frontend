@@ -1,5 +1,5 @@
 import * as types from './types';
-import http from '../../../utils/helpers/http';
+import {http} from '../../../utils/helpers/http';
 
 const initialState = {
   articles: [],
