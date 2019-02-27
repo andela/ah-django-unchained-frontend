@@ -11,6 +11,11 @@ import Star, { AverageRating } from '../../components/ArticleRating/index';
 import { postRating } from '../../store/modules/articleRating/index';
 import { deleteArticle } from '../../store/modules/deleteArticle';
 import { Button } from '../../components/Button';
+import { LikeDislikeArticle } from '../LikeDislikeArticle/index';
+import {
+  likeArticle,
+  dislikeArticle
+} from '../../store/modules/likeDislikeArticle/index';
 
 export class ArticleDetail extends Component {
   state = {
@@ -22,6 +27,15 @@ export class ArticleDetail extends Component {
     getSingleArticle(match.params.article);
   }
 
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.likeDislikeArticle !== this.props.likeDislikeArticle) {
+      const { likes_count, dislikes_count } = nextProps.likeDislikeArticle.data;
+      const { data } = this.props;
+      data['likes_count'] = likes_count;
+      data['dislikes_count'] = dislikes_count;
+    }
+  }
+
   onStarClick = newRating => {
     this.setState({ rate: newRating });
     const { data } = this.props;
@@ -29,7 +43,7 @@ export class ArticleDetail extends Component {
       slug: data.slug,
       rating: { rate: newRating }
     };
-    
+
     const { postRating } = this.props;
     postRating(payload);
   };
@@ -42,6 +56,17 @@ export class ArticleDetail extends Component {
     deleteArticle(match.params.article, deletedStatus);
   };
 
+  handleLike = () => {
+    const { data } = this.props;
+    const { likeArticle } = this.props;
+    likeArticle(data.slug);
+  };
+  handleDislike = () => {
+    const { data } = this.props;
+    const { dislikeArticle } = this.props;
+    dislikeArticle(data.slug);
+  };
+
   render() {
     const {
       match,
@@ -49,7 +74,8 @@ export class ArticleDetail extends Component {
       isFound,
       data,
       isDeleted,
-      ratingResponse
+      ratingResponse,
+      isLoggedIn
     } = this.props;
     const { rate } = this.state;
     const loggedIn = localStorage.getItem('token');
@@ -141,6 +167,15 @@ export class ArticleDetail extends Component {
                     })
                   : null}
               </div>
+              {isLoggedIn ? (
+                <LikeDislikeArticle
+                  like={this.handleLike}
+                  dislike={this.handleDislike}
+                  article={data}
+                />
+              ) : (
+                <div />
+              )}
             </div>
           </div>
         ) : (
@@ -158,7 +193,9 @@ export const mapStateToProps = state => ({
   response: state.deleteArticleReducer.response,
   errors: state.deleteArticleReducer.errors,
   isDeleted: state.deleteArticleReducer.isDeleted,
-  ratingResponse: state.ratingReducer.ratingResponse
+  ratingResponse: state.ratingReducer.ratingResponse,
+  isLoggedIn: state.loginReducer.isLoggedIn,
+  likeDislikeArticle: state.likeDislikeArticle.likesDislikes
 });
 
 ArticleDetail.propTypes = {
@@ -168,14 +205,17 @@ ArticleDetail.propTypes = {
   isFound: PropTypes.bool.isRequired,
   isFetching: PropTypes.bool.isRequired,
   getSingleArticle: PropTypes.func.isRequired,
-  postRating: PropTypes.func.isRequired
+  postRating: PropTypes.func.isRequired,
+  isLoggedIn: PropTypes.bool.isRequired
 };
 
 export const mapDispatchToProps = dispatch => ({
   getSingleArticle: article => dispatch(getSingleArticle(article)),
   postRating: payload => dispatch(postRating(payload)),
   deleteArticle: (article, deletedStatus) =>
-    dispatch(deleteArticle(article, deletedStatus))
+    dispatch(deleteArticle(article, deletedStatus)),
+  likeArticle: slug => dispatch(likeArticle(slug)),
+  dislikeArticle: slug => dispatch(dislikeArticle(slug))
 });
 
 export default connect(

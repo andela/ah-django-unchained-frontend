@@ -5,7 +5,6 @@ import { mapStateToProps, mapDispatchToProps, ArticleDetail } from './index';
 describe('ArticleDetail', () => {
   let wrapper;
   let props;
-  let state;
   let dispatch;
   let propsMaped;
   let wrapperInstance;
@@ -19,15 +18,12 @@ describe('ArticleDetail', () => {
           body: 'body',
           slug: 'slug'
         },
-
         IsFetching: true,
         IsFound: true
       },
-
       data: {
         slug: 'slug'
       },
-
       ratingReducer: {
         ratingResponse: {
           message: 'Article successfully rated',
@@ -37,6 +33,8 @@ describe('ArticleDetail', () => {
       },
       getSingleArticle: jest.fn(),
       deleteArticle: jest.fn(),
+      likeArticle: jest.fn(),
+      dislikeArticle: jest.fn(),
       match: {
         params: {
           article: 'article'
@@ -45,14 +43,9 @@ describe('ArticleDetail', () => {
       postRating: jest.fn(() => Promise.resolve()),
       deletedStatus: {
         is_deleted: true
-      }
-    };
-
-    state = {
-      singleArticle: {
-        data: {}
       },
-      ratingReducer: {}
+      likes_count: 2,
+      dislikes_count: 3
     };
 
     dispatch = jest.fn(() => Promise.resolve());
@@ -86,7 +79,11 @@ describe('ArticleDetail', () => {
       },
       ratingReducer: {
         ratingResponse: undefined
-      }
+      },
+      loginReducer: {
+        isLoggedIn: true
+      },
+      likeDislikeArticle: {}
     };
     const props = mapStateToProps(state);
     expect(props.errors).toEqual(state.deleteArticleReducer.errors);
@@ -96,7 +93,10 @@ describe('ArticleDetail', () => {
     expect(props.isFound).toEqual(state.singleArticle.isFound);
     expect(props.data).toEqual(state.singleArticle.data);
     expect(props.ratingResponse).toEqual(state.ratingReducer.ratingResponse);
-
+    expect(props.likeDislikeArticle).toEqual(
+      state.singleArticle.likeDislikeArticle
+    );
+    expect(props.loginReducer).toEqual(state.singleArticle.loginReducer);
   });
 
   it('should dispatch to props', () => {
@@ -112,5 +112,31 @@ describe('ArticleDetail', () => {
   it('should execute onClickHandler on buton click', () => {
     wrapperInstance.onClickHandler();
     expect(props.deleteArticle).toHaveBeenCalled();
+  });
+  it('should dispatch to props', () => {
+    propsMaped.likeArticle();
+    expect(dispatch).toHaveBeenCalled();
+  });
+
+  it('should dispatch to props', () => {
+    propsMaped.dislikeArticle();
+    expect(dispatch).toHaveBeenCalled();
+  });
+
+  it('should execute likeArticle when handleLike is called', () => {
+    wrapperInstance.handleLike();
+    expect(props.likeArticle).toHaveBeenCalled();
+  });
+
+  it('should execute dislikeArticle when handleDislike is called', () => {
+    wrapperInstance.handleDislike();
+    expect(props.dislikeArticle).toHaveBeenCalled();
+  });
+
+  it('component willReceive props', () => {
+    const nextProps = {};
+    wrapperInstance.componentWillReceiveProps(nextProps);
+    expect('likes_count' in props).toEqual(true);
+    expect('dislikes_count' in props).toEqual(true);
   });
 });

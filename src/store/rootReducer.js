@@ -5,12 +5,16 @@ import socialAuth from './modules/socialAuth/index';
 import { updatepasswordReducer } from './modules/UpdatePassword';
 import articleReducer from './modules/getArticles/index';
 import { singleArticle } from './modules/articleDetail/index';
-import { getDraftReducer }  from './modules/drafts/index';
-import { postArticleReducer, imageUploadReducer } from './modules/createArticle/index';
+import { getDraftReducer } from './modules/drafts/index';
+import {
+  postArticleReducer,
+  imageUploadReducer
+} from './modules/createArticle/index';
 import { ratingReducer } from './modules/articleRating/index';
-import {resetReducer } from './modules/PasswordReset';
+import { resetReducer } from './modules/PasswordReset';
 import { deleteArticleReducer } from './modules/deleteArticle';
 import  userProfile  from './modules/profile/index';
+import { likeDislikeArticle } from './modules/likeDislikeArticle/index';
 
 const rootReducer = combineReducers({
   signUpReducer,
@@ -25,7 +29,8 @@ const rootReducer = combineReducers({
   imageUploadReducer,
   ratingReducer,
   deleteArticleReducer,
-  userProfile
+  userProfile,
+  likeDislikeArticle
 });
 
 export default rootReducer;
