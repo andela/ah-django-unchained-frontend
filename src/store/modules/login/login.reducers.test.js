@@ -21,7 +21,7 @@ describe('Login reducer', () => {
   });
 
   it('should handle login success', () => {
-    const state = {};
+    const state = {'isLoggedIn': false};
 
     const userData = {
       type: LOGIN_SUCCESS,

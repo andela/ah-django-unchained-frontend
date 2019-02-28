@@ -1,69 +1,87 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-import './NavBar.css';
-import { Collapse, Navbar, NavbarToggler, NavbarBrand, Nav } from 'reactstrap';
+import { logoutUser } from '../../store/modules/login';
 import Logo from '../../assets/images/logo.png';
+import './NavBar.css';
 
-class NavBar extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      isOpen: false,
-      loggedIn: false
-    };
-  }
-
-  toggleNavBar = () => {
-    this.setState({
-      isOpen: !this.state.isOpen
-    });
+export class NavBar extends Component {
+  clearToken = () => {
+    const {logoutUser} = this.props;
+    logoutUser();
   };
 
   render() {
-    const { loggedIn } = this.state;
+    const { isLoggedIn } = this.props;
     return (
       <div>
-        <Navbar className="navbar navbar-expand-lg navbar bg-dark navbar-dark ">
-          <NavbarBrand href="/" className="nav-link">
-            <img src={Logo} alt="Logo" />
-            Authors Haven
-          </NavbarBrand>
-          <NavbarToggler onClick={this.toggleNavBar} />
-          <Collapse isOpen={this.state.isOpen} navbar>
-            <Nav className="ml-auto">
-              {loggedIn ? (
-                <Link to="logout" class="text-info nav-link">
-                  Logout
-                </Link>
-              ) : (
-                <ul className="container">
-                  <li>
-                    <Link to="signup" className="text-info nav-link">
-                      SignUp
-                    </Link>
-                  </li>
-                  <li>
-                    <Link to="/login" className="text-info nav-link">
-                      Login
-                    </Link>
-                  </li>
-                  <li>
-                    <Link to="/draft" className="text-info nav-link">
-                      View Drafts
-                    </Link>
-                  </li>
-                  <li>
-                    <Link to="/createArticle" className="text-info nav-link">
-                      Create  Draft
-                    </Link>
-                  </li>
-                </ul>
-              )}
-            </Nav>
-          </Collapse>
-        </Navbar>
+        <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
+          <Link to="/" className="nav-link">
+            <img src={Logo} alt="logo" id="logo" className="rounded-circle" />
+            <span id="authors"> Authors </span>
+            <span id="haven"> Haven </span>
+          </Link>
+          <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
+            <span className="navbar-toggler-icon" />
+          </button>
+          <div className="collapse navbar-collapse" id="navbarTogglerDemo02">
+            {!isLoggedIn ?
+              <ul className="navbar-nav ml-auto mt-2 mt-lg-0">
+                <li className="nav-item active">
+                  <Link className="nav-link" to="/login">
+                    Sign In
+                  </Link>
+                </li>
+                <li className="nav-item active">
+                  <Link className="nav-link" to="/signup">
+                    Sign Up
+                  </Link>
+                </li>
+              </ul> :
+              <ul className="navbar-nav ml-auto my-2 my-lg-0">
+                <li className="nav-item active">
+                  <Link className="nav-link" to="/">
+                    Home
+                  </Link>
+                </li>
+                <li className="nav-item active">
+                  <Link className="nav-link" to="/createArticle">
+                    Create article
+                  </Link>
+                </li>
+                <li className="nav-item active">
+                  <Link className="nav-link" to="/draft">
+                    View Drafts
+                  </Link>
+                </li>
+                <li className="nav-item active">
+                  <Link className="nav-link" to={`/profile/${localStorage.getItem('username')}`}>
+                    My Profile
+                  </Link>
+                </li>
+                <li className="nav-item active">
+                  <Link className="nav-link" to="/login" onClick={this.clearToken}>
+                    Sign Out
+                  </Link>
+                </li>
+              </ul>
+            }
+          </div>
+        </nav>
       </div>
     );
   }
 }
-export default NavBar;
+
+export const mapStateToProps = state => ({
+  isLoggedIn: state.loginReducer.isLoggedIn,
+  logoutUser: state
+});
+
+export const mapDispatchToProps = dispatch => ({
+  logoutUser: () => dispatch(logoutUser())
+});
+
+export default connect(
+  mapStateToProps, mapDispatchToProps
+)(NavBar);

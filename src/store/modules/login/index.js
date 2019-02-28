@@ -1,5 +1,5 @@
 import { toast } from 'react-toastify';
-import { LOGIN_FAILED, LOGIN_SUCCESS, LOGIN_REQUEST } from './types';
+import { LOGIN_FAILED, LOGIN_SUCCESS, LOGIN_REQUEST, LOGOUT_SUCCESS } from './types';
 import { http } from '../../../utils/helpers/http';
 
 const initialState = {};
@@ -17,12 +17,23 @@ export const loginUserSuccess = response => ({
   response
 });
 
+export const logoutUserSuccess = () => ({
+  type: LOGOUT_SUCCESS,
+  isLoggedIn: false,
+});
+
 export const loginUserFailed = response => ({
   type: LOGIN_FAILED,
   isLoggedIn: false,
   isLoading: false,
   response
 });
+
+export const logoutUser = () => (dispatch) => {
+  localStorage.removeItem('token');
+  localStorage.removeItem('username');
+  dispatch(logoutUserSuccess());
+};
 
 export const loginUser = userData => dispatch => {
   dispatch(loginUserRequest());
@@ -57,8 +68,13 @@ export const loginReducer = (state = initialState, action) => {
         isLoading: false,
         errors: action.response
       };
+    case LOGOUT_SUCCESS:
+      return {
+        ...state,
+        isLoggedIn: false,
+      };
     default:
-      return state;
+      return { ...state };
   }
 };
 

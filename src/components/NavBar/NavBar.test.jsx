@@ -1,13 +1,15 @@
 import React from 'react';
-import { mount } from 'enzyme';
-import NavBar from './index';
-import { Provider } from 'react-redux';
+import { mount, shallow } from 'enzyme';
 import { MemoryRouter } from 'react-router-dom';
+import { Provider } from 'react-redux';
+import {mapDispatchToProps, NavBar} from './index';
 import store from '../../store';
 
-describe("The NavBar", () => {
+describe('The NavBar', () => {
   let componentWrapper = {};
-
+  let props;
+  let dispatch;
+  let wrapperInstance;
   beforeEach(() => {
     componentWrapper = mount(
       <Provider store={store}>
@@ -16,16 +18,27 @@ describe("The NavBar", () => {
         </MemoryRouter>
       </Provider>
     );
+    props = {
+      logoutUser: jest.fn(() => {
+        Promise.resolve();
+      })
+    };
+    wrapperInstance = shallow(<NavBar {...props} />).instance();
   });
 
   it('should match snapshot', () => {
     expect(componentWrapper).toMatchSnapshot();
   });
 
-  it('test if menu button expands the menu', () => {
-    componentWrapper.find(".navbar-toggler").simulate("click");
-    expect(
-      componentWrapper.find(".navbar-collapse").hasClass("collapsing")
-    ).toBe(true);
+  it('Should dispatch when logoutuser is called', () => {
+    dispatch = jest.fn(() => Promise.resolve());
+    props = mapDispatchToProps(dispatch);
+    props.logoutUser();
+    expect(dispatch).toHaveBeenCalled();
+  });
+
+  it('should call dispatch when clearToken is called', () => {
+    wrapperInstance.clearToken();
+    expect(props.logoutUser).toHaveBeenCalled();
   });
 });
