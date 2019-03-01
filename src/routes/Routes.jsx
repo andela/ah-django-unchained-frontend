@@ -22,7 +22,7 @@ const Routes = () => {
           <Route login path="/login" component={LoginPage} />
           <Route passwordrest path='/passwordreset' component={ResetPassword} />
           <Route passwordupdate path='/api/users/passwordresetdone/:token' component={UpdatePassword} />
-          <Route updatepublishedarticle path="/updatearticle" component={ArticleForm} />
+          <Route updatepublishedarticle path="/updatearticle/:article" component={ArticleForm} />
           <Route draft path="/draft" component={ViewDrafts} />
         </Switch>
       </React.Fragment>

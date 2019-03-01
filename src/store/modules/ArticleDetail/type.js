@@ -1,0 +1,2 @@
+export const ARTICLE_SUCCESS = 'ARTICLE_SUCCESS';
+export const ARTICLE_FAIL = 'ARTICLE_FAIL';
