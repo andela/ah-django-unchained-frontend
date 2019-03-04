@@ -16,10 +16,15 @@ import {
   likeArticle,
   dislikeArticle
 } from '../../store/modules/likeDislikeArticle/index';
+import { TextArea } from '../../components/TextArea';
+import { postComment } from '../../store/modules/comments/index';
+
 
 export class ArticleDetail extends Component {
   state = {
-    rate: 0
+    rate: 0,
+    comment: ''
+
   };
 
   componentDidMount() {
@@ -65,6 +70,24 @@ export class ArticleDetail extends Component {
     const { data } = this.props;
     const { dislikeArticle } = this.props;
     dislikeArticle(data.slug);
+  };
+  handleChange= e =>{
+    this.setState({
+      comment: e.target.value
+
+
+    });
+
+  };
+  handleSubmit = e =>{
+    const { postComment } = this.props;
+    e.preventDefault();
+    const slug = this.props.data['slug'];
+    const comment = this.state.comment;
+    const new_comment = {'body': comment};
+    postComment({ slug,new_comment});
+    e.target.reset(); 
+
   };
 
   render() {
@@ -167,6 +190,30 @@ export class ArticleDetail extends Component {
                     })
                   : null}
               </div>
+              <form onSubmit={this.handleSubmit}>
+                  {this.props.data['is_published']&&(
+                  <div className='Container'>
+                    <TextArea 
+                      rows="5"
+                      cols="30"
+                      name="comment"
+                      onChange={this.handleChange}
+                      id="comment"
+                      className="container"                    
+                      placeholder='Enter Comment'
+                      required
+                    /> 
+                    <Button
+                      text='Add Comment'
+                      type='submit'
+                      className='btn btn-info'
+                    />
+                    
+
+                  </div>
+                )}
+                </form>
+
               {isLoggedIn ? (
                 <LikeDislikeArticle
                   like={this.handleLike}
@@ -195,7 +242,10 @@ export const mapStateToProps = state => ({
   isDeleted: state.deleteArticleReducer.isDeleted,
   ratingResponse: state.ratingReducer.ratingResponse,
   isLoggedIn: state.loginReducer.isLoggedIn,
-  likeDislikeArticle: state.likeDislikeArticle.likesDislikes
+  likeDislikeArticle: state.likeDislikeArticle.likesDislikes,
+  comment: state.createCommentReducer.comment,
+  errorz: state.createCommentReducer.errors,
+  Fetching: state.createCommentReducer.isFetching,
 });
 
 ArticleDetail.propTypes = {
@@ -215,7 +265,9 @@ export const mapDispatchToProps = dispatch => ({
   deleteArticle: (article, deletedStatus) =>
     dispatch(deleteArticle(article, deletedStatus)),
   likeArticle: slug => dispatch(likeArticle(slug)),
-  dislikeArticle: slug => dispatch(dislikeArticle(slug))
+  dislikeArticle: slug => dispatch(dislikeArticle(slug)),
+  postComment: new_comment => dispatch(postComment(new_comment))
+
 });
 
 export default connect(
