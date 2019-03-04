@@ -52,9 +52,9 @@ export class ViewProfile extends Component {
                 <div className="card bg-light">
                   <div className="card-body text-center">
                     <p className="card-text">
-                      First name
+                      Last name
                       <br />
-                      {data.first_name}
+                      {data.last_name}
                     </p>
                   </div>
                 </div>
